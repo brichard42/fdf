@@ -1,0 +1,83 @@
+#!/bin/bash
+
+algood()
+{
+	echo "All Good!"
+	echo .
+	sleep 0.5
+	echo .
+	sleep 0.5
+	echo .
+	sleep 1
+}
+
+
+clo()
+{
+	clear
+	read -p "Where is it? " add
+	read -p "Where does it go? " loc
+	git clone $add $loc
+}
+
+pu()
+{
+	clear
+	git add ./
+	git status
+	read -p "On commit? y/n "
+	case $REPLY in
+		"y")
+			read -p "commit: "
+			git commit -m "$REPLY"
+			git push
+			exit 0;
+			;;
+		"n")
+			gc
+			;;
+		*)
+			echo "Ah non, ca marche pas ca: '$REPLY'"
+			;;
+	esac
+}
+
+gc()
+{
+	clear
+	select choice in "git clone" "git push" "exit"
+	do
+		case $REPLY in
+			1)
+				clo
+				;;
+			2)
+				pu
+				;;
+			3)
+				echo "Bye bye! ;)"
+				exit 0
+				;;
+			*)
+				echo Wrong answer!
+				;;
+		esac
+	done
+}
+
+clear
+if [ "$1" = "re" ]; then
+	make re -C ~/Projects/FilDeFer/fdf
+	if [ $? -eq 0 ]; then
+		algood
+		/Users/brichard/Projects/FilDeFer/fdf/fdf $2
+	fi
+elif [ "$1" = "git" ]; then 
+	gc
+else
+	make -C ~/Projects/FilDeFer/fdf
+	if [ $? -eq 0 ]; then
+		algood
+		/Users/brichard/Projects/FilDeFer/fdf/fdf $1
+	fi
+fi
