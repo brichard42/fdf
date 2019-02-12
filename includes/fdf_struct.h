@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fdf_struct.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/12 16:28:29 by brichard         ###   ########.fr       */
+/*   Created: 2019/02/12 15:51:49 by brichard          #+#    #+#             */
+/*   Updated: 2019/02/12 16:02:10 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_STRUCT_H
+# define FDF_STRUCT_H
 
-# include "libft.h"
-# include "mlx.h"
-# include "fdf_struct.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <errno.h>
-# include <math.h>
+typedef struct	s_img
+{
+	void		*img_ptr;
+	int			*data;
+	int			size_l;
+	int			bpp;
+	int			endian;
+}				t_img;
 
-# define W_HEIGHT 900
-# define W_WIDTH 1600
+typedef struct	s_mlx
+{
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_img		img;
+}				t_mlx;
 
 #endif

@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fdf_errors.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/12 16:28:29 by brichard         ###   ########.fr       */
+/*   Created: 2019/02/12 16:36:28 by brichard          #+#    #+#             */
+/*   Updated: 2019/02/12 16:38:57 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_ERRORS_H
+# define FDF_ERRORS_H
 
-# include "libft.h"
-# include "mlx.h"
-# include "fdf_struct.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <errno.h>
-# include <math.h>
-
-# define W_HEIGHT 900
-# define W_WIDTH 1600
+# define E_MLX_INIT 1
+# define E_MLX_NEW_WINDOW 2
+# define E_MLX_NEW_IMAGE 3
 
 #endif
