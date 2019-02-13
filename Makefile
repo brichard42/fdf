@@ -6,7 +6,7 @@
 #    By: brichard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by brichard          #+#    #+#              #
-#    Updated: 2019/02/11 15:19:12 by brichard         ###   ########.fr        #
+#    Updated: 2019/02/13 11:44:44 by brichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,15 @@ NAME = fdf
 
 CC = gcc
 
-CFLAGS = -g -g3 -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
-LIB = libft.a
+LIB_NAME = $(LIBS:=.a)
 
-LIB_PATH = libft
+LIB = libraries
+
+LIB_PATH = $(addprefix $(LIB)/, $(LIBS))
+
+D_LIB = $(addprefix $(LIB_PATH)/, $(LIB_NAME))
 
 INC = includes
 
@@ -35,6 +39,13 @@ OBJS_PATH = obj
 OBJS = $(SRCS:.c=.o)
 
 D_OBJS = $(addprefix $(OBJS_PATH)/, $(OBJS))
+
+################################################################################
+#                                    LIBS                                      #
+################################################################################
+
+LIBS = libft \
+	  # libgraph
 
 ################################################################################
 #                                    SRCS                                      #
@@ -82,7 +93,7 @@ COM_STRING   = "Compiling"
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJS_PATH) $(INC) $(D_OBJS)
+$(NAME): $(D_LIB) $(OBJS_PATH) $(INC) $(D_OBJS)
 	@$(call run_and_test, $(CC) $(CFLAGS) -o $(NAME) $(D_OBJS) -L ./$(LIB_PATH) -lft -I $(MLX_PATH)/include/ -L $(MLX_PATH)/lib/ -lmlx -framework OpenGL -framework AppKit)
 
 $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
@@ -91,16 +102,13 @@ $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 $(OBJS_PATH) :
 	@$(call run_and_test, mkdir -p $@)
 
-$(LIB):
+$(LIB_PATH)/%.a:
 	@make -C $(LIB_PATH)
 
-sanitize: fclean $(LIB) $(OBJS_PATH) $(INC) $(D_OBJS)
-	@$(call run_and_test, $(CC) $(CFLAGS) -o $(NAME) $(D_OBJS) -L ./$(LIB_PATH) -lft -I $(MLX_PATH)/include/ -L $(MLX_PATH)/lib/ -lmlx -framework OpenGL -framework AppKit -fsanitize=address)
-
 clean:
-	@$(call run_and_test, rm -f $(D_OBJS) && rmdir $(OBJS_PATH) && make clean -C $(LIB_PATH))
+	@$(call run_and_test, rm -f $(D_OBJS) && rm -rf $(OBJS_PATH) && make clean -C $(LIB_PATH))
 
 fclean: clean
-	@$(call run_and_test, rm -f $(NAME) && rm -rf $(LIB_PATH)/$(LIB))
+	@$(call run_and_test, rm -f $(NAME) && rm -rf $(LIB_PATH)/$(LIB_NAME))
 
 re: fclean all
