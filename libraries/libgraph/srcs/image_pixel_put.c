@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   image_pixel_put.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/14 11:26:35 by brichard         ###   ########.fr       */
+/*   Created: 2019/02/12 18:15:58 by brichard          #+#    #+#             */
+/*   Updated: 2019/02/14 11:28:35 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "libgraph.h"
 
-# include "libft.h"
-# include "libgraph.h"
-# include "mlx.h"
-# include "fdf_errors.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <errno.h>
-# include <math.h>
-
-# define W_HEIGHT 900
-# define W_WIDTH 1600
-
-#endif
+int		image_pixel_put(t_img *img, int x, int y, int color)
+{
+	img->data[x + y * img->size_l / 4] = color; // c'est degueulasse, faut soit prendre W_WIDTH, soit prendre data en char *, mais pas mixer .... 
+	return (0);
+}

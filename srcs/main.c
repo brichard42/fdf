@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/13 11:08:37 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/14 17:08:08 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int		main(void)
 		pexit(E_MLX_NEW_WINDOW);
 	if (!(mlx.img.img_ptr = mlx_new_image(mlx.mlx_ptr, W_WIDTH, W_HEIGHT)))
 		pexit(E_MLX_NEW_IMAGE);
-	mlx_pixel_put(mlx.mlx_ptr, mlx.win_ptr, 900, 450, 0xFF0000);
 	mlx_loop(mlx.mlx_ptr);
 	return (0);
 }

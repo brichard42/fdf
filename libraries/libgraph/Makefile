@@ -6,7 +6,7 @@
 #    By: brichard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by brichard          #+#    #+#              #
-#    Updated: 2019/02/14 16:41:36 by brichard         ###   ########.fr        #
+#    Updated: 2019/02/14 16:41:58 by brichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,23 +14,13 @@
 #                                   VARIABLES                                  #
 ################################################################################
 
-NAME = fdf
+NAME = libgraph.a
 
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-INC_FLAGS = $(addprefix -I , $(LIB_INC))
-
-LIB = libraries
-
-LIB_PATH = $(addprefix $(LIB)/, $(LIBS))
-
-LIB_INC = $(addsuffix /$(INC), $(LIB_PATH))
-
 INC = includes
-
-MLX_PATH = /usr/local/
 
 SRCS_PATH = srcs
 
@@ -40,19 +30,11 @@ OBJS = $(SRCS:.c=.o)
 
 D_OBJS = $(addprefix $(OBJS_PATH)/, $(OBJS))
 
-
 ################################################################################
-#                                    LIBS                                      #
-################################################################################
-
-LIBS = libft \
-	   libgraph
-
-################################################################################
-#                                    SRCS                                      #
+#                                    SOURCES                                   #
 ################################################################################
 
-SRCS =	main.c
+SRCS =	image_pixel_put.c
 
 ################################################################################
 #                                    COlORS                                    #
@@ -87,42 +69,28 @@ WARN_STRING  = "[WARNING]"
 COM_STRING   = "Compiling"
 
 ################################################################################
-#                                    SHELL                                     #
-################################################################################
-
-define lib_script
-	for dir in $(LIB_PATH); do \
-		(${MAKE} -C $$dir); \
-		done; \
-
-endef
-
-################################################################################
 #                                   COMMANDS                                   #
 ################################################################################
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
+	@echo > /dev/null
 
-$(NAME): lib $(OBJS_PATH) $(INC) $(D_OBJS)
-	@$(call run_and_test, $(CC) $(CFLAGS) -o $(NAME) $(D_OBJS) -I $(MLX_PATH)/include/ -L $(MLX_PATH)/lib/ -lmlx -framework OpenGL -framework AppKit -L ./$(LIB)/libft -lft -L ./$(LIB)/libgraph -lgraph)
+$(NAME): $(OBJS_PATH) $(INC) $(D_PRINTF_OBJS) $(D_OBJS)
+	@$(call run_and_test, ar -rc $(NAME) $(D_OBJS) $(D_PRINTF_OBJS))
+	@ranlib $(NAME)
 
 $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
-	@$(call run_and_test, $(CC) $(CFLAGS) -o $@ -c $< -I $(INC)  $(INC_FLAGS))
+	@$(CC) $(CFLAGS) -o $@ -c $< -I$(INC)
 
-$(OBJS_PATH) :
-	@$(call run_and_test, mkdir -p $@)
+$(OBJS_PATH):
+	@mkdir -p $@
 
-lib:
-	@$(call lib_script)
-
-CLEAN_LIB = $(addprefix && make clean -C , $(LIB_PATH))
 clean:
-	@$(call run_and_test, rm -f $(D_OBJS) && rm -rf $(OBJS_PATH) $(CLEAN_LIB))
+	@rm -f $(D_OBJS) && rm -rf $(OBJS_PATH)
 
-FCLEAN_LIB = $(addprefix && make fclean -C , $(LIB_PATH))
-fclean:
-	@$(call run_and_test, rm -f $(D_OBJS) && rm -rf $(OBJS_PATH) && rm -f $(NAME) $(FCLEAN_LIB))
+fclean: clean
+	@rm -f $(NAME)
 
 re: fclean all
