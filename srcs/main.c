@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/14 20:14:38 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/15 14:32:00 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		main(void)
 	t_mlx	mlx;
 	int i;
 
+	ft_printf("MAIN | test = %s", "plop");
 	i = 0;
 	if (!(mlx.mlx_ptr = mlx_init()))
 		pexit(E_MLX_INIT);
