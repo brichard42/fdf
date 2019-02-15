@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:49:36 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/15 15:51:40 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/15 20:49:34 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	parsingfdf(const int fd, t_list **begin)
 	i = 0;
 	while ((ret = get_next_line(fd, &line)) > 0) // gnl a reverifier == leaks
 	{
-		if (!(new = ft_lstnew((void *)line, ft_strlen(line))))
+		if (!(new = ft_lstnew((void *)line, ft_strlen(line) + 1)))
 		{
 			ft_lstdel(begin, ft_del_cont);
 			free(line);
@@ -30,8 +30,6 @@ size_t	parsingfdf(const int fd, t_list **begin)
 		}
 		ft_lstapp(begin, new);
 		i++;
-		ft_printf("LOOP | line =\t [%s] && len = {%d}\n", line, ft_strlen(line));
-		ft_printf("LOOP | lst  =\t [%s] && len = {%d}\n", (char *)new->content, ft_strlen(line));
 		free(line);
 	}
 	if (ret < 0)
@@ -40,7 +38,7 @@ size_t	parsingfdf(const int fd, t_list **begin)
 		free(line);
 		return (-1);
 	}
-	return (/*i*/0);
+	return (i);
 }
 
 int		get_file(int ac, char **av)
@@ -51,7 +49,7 @@ int		get_file(int ac, char **av)
 
 	begin = NULL;
 	if (ac < 2)
-		num_lines = parsingfdf(0, &begin);
+		return (-1);
 	else
 	{
 		fd = open(av[1], O_RDONLY);
@@ -63,7 +61,7 @@ int		get_file(int ac, char **av)
 	}
 	while (begin != NULL)
 	{
-		ft_printf("GET_FILE | begin->content = [%s]\n", (char *)begin->content);
+		ft_printf("GET_FILE | begin->content = [%s]\tnum_lines = {%d}\n", (char *)begin->content, num_lines);
 		begin = begin->next;
 	}
 	return (0);
