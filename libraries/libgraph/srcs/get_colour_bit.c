@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   get_colour_bit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/15 13:24:38 by brichard         ###   ########.fr       */
+/*   Created: 2019/02/15 11:13:47 by brichard          #+#    #+#             */
+/*   Updated: 2019/02/15 11:14:11 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+int		get_red_bit(int colour)
+{
+	return ((colour & 0xFF0000) >> 16);
+}
 
-# include "libft.h"
-# include "libgraph.h"
-# include "mlx.h"
-# include "fdf_errors.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <errno.h>
-# include <math.h>
-# include <fcntl.h>
-# include <unistd.h>
+int		get_green_bit(int colour)
+{
+	return ((colour & 0x00FF00) >> 8);
+}
 
-# define W_HEIGHT 900
-# define W_WIDTH 1600
-
-int		get_file(int ac, char **av);
-
-#endif
+int		get_blue_bit(int colour)
+{
+	return ((colour & 0x0000FF));
+}
