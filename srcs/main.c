@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/15 14:21:25 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/15 14:29:35 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		pexit(int	exit_value)
 	exit(exit_value);
 }
 #include <stdio.h>
-int		main(int ac, char **av)
+int		main(void)
 {
 	t_mlx	mlx;
 	int i;
@@ -41,7 +41,7 @@ int		main(int ac, char **av)
 		i++;
 	}
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img.img_ptr, 0, 0);
-	get_file(ac, av);
-	//mlx_loop(mlx.mlx_ptr);
+//	get_file(ac, av);
+	mlx_loop(mlx.mlx_ptr);
 	return (0);
 }
