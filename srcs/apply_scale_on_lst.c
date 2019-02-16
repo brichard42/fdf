@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_struct.h                                       :+:      :+:    :+:   */
+/*   apply_scale_on_lst.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/12 15:51:49 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/12 16:02:10 by brichard         ###   ########.fr       */
+/*   Created: 2019/02/16 15:46:19 by brichard          #+#    #+#             */
+/*   Updated: 2019/02/16 16:23:05 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_STRUCT_H
-# define FDF_STRUCT_H
+#include "fdf.h"
 
-typedef struct	s_img
+void	apply_scale_on_lst(t_list *lst, int scale)
 {
-	void		*img_ptr;
-	int			*data;
-	int			size_l;
-	int			bpp;
-	int			endian;
-}				t_img;
-
-typedef struct	s_mlx
-{
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_img		img;
-}				t_mlx;
-
-#endif
+	while (lst != NULL)
+	{
+		apply_scale_on_point(((t_point *)lst->content), scale);
+		lst = lst->next;
+	}
+}
