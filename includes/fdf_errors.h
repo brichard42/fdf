@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 16:36:28 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/12 16:59:50 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/16 17:12:09 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 # define E_MLX_INIT 1
 # define E_MLX_NEW_WINDOW 2
 # define E_MLX_NEW_IMAGE 3
+# define E_FDF_PARSING 4
 
 #endif

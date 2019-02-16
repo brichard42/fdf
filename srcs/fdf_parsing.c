@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/16 16:45:40 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/16 20:39:07 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int		put_in_point(t_list **begin, char *line,
 			pt->z = ft_atoi(line);
 			if (!(new = ft_lstnew((void *)pt, sizeof(t_point))))
 				return (0);
-			ft_lstapp(begin, new);
+			ft_lstadd(begin, new);
 			while (*line && ft_isdigit(*line))
 				++line;
 			++i;
@@ -74,7 +74,8 @@ int				fdf_parsing(char *av, t_list **begin)
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
 		return (-1);
-	num_lines = put_in_lst(fd, begin);
+	if ((num_lines = put_in_lst(fd, begin)) == -1)
+			return (-1);
 	if (close(fd) == -1)
 		return (-1);
 	return (0);
