@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/18 18:07:59 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/19 14:28:58 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	init_window(t_mlx *mlx)
 		pexit(E_MLX_NEW_WINDOW);
 }
 
-static int	task_manager(char **file)
+static int	task_manager(int **file)
 {
 	t_mlx	mlx;
 
