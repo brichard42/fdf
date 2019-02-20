@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 21:25:21 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/16 18:22:41 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/20 12:01:25 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ typedef struct	s_img
 	char		*data;
 	int			data_size;
 	int			size_l;
-	int			bpp;
-	int			endian;
 }				t_img;
 
 typedef struct	s_mlx

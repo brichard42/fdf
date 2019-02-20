@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 11:12:47 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/20 12:01:22 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@
 
 int		fdf_parsing(char *av, int ***file);
 void	apply_scale_on_lst(t_list *lst, int scale);
+int		pexit(int exit_value);
 
 #endif
