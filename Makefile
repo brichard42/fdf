@@ -6,7 +6,7 @@
 #    By: brichard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by brichard          #+#    #+#              #
-#    Updated: 2019/02/20 11:43:42 by brichard         ###   ########.fr        #
+#    Updated: 2019/02/20 17:16:00 by brichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ D_OBJS = $(addprefix $(OBJS_PATH)/, $(OBJS))
 ################################################################################
 
 LIBS = libft \
-	   libgraph
 
 ################################################################################
 #                                    SRCS                                      #
@@ -54,7 +53,9 @@ LIBS = libft \
 
 SRCS =	main.c \
 		fdf_parsing.c \
-		apply_scale_on_lst.c
+		fdf_utils.c \
+		fdf_init.c \
+		image_pixel_put.c \
 
 ################################################################################
 #                                    COlORS                                    #
@@ -108,7 +109,7 @@ endef
 all: $(NAME)
 
 $(NAME): lib $(OBJS_PATH) $(INC) $(D_OBJS)
-	@$(call run_and_test, $(CC) $(CFLAGS) -o $(NAME) $(D_OBJS) -I $(MLX_PATH)/include/ -L $(MLX_PATH)/lib/ -lmlx -framework OpenGL -framework AppKit -L ./$(LIB)/libft -lft -L ./$(LIB)/libgraph -lgraph)
+	@$(call run_and_test, $(CC) $(CFLAGS) -o $(NAME) $(D_OBJS) -I $(MLX_PATH)/include/ -L $(MLX_PATH)/lib/ -lmlx -framework OpenGL -framework AppKit -L ./$(LIB)/libft -lft )
 
 $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 	@$(call run_and_test, $(CC) $(CFLAGS) -o $@ -c $< -I $(INC)  $(INC_FLAGS))

@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   apply_scale_on_lst.c                               :+:      :+:    :+:   */
+/*   image_pixel_put.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/16 15:46:19 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/16 16:23:05 by brichard         ###   ########.fr       */
+/*   Created: 2019/02/12 18:15:58 by brichard          #+#    #+#             */
+/*   Updated: 2019/02/20 17:02:34 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	apply_scale_on_lst(t_list *lst, int scale)
+int		image_pixel_put(t_img *img, int x, int y, int colour)
 {
-	while (lst != NULL)
-	{
-		apply_scale_on_point(((t_point *)lst->content), scale);
-		lst = lst->next;
-	}
+	if ((x + y  * img->size_l / 4) > img->data_size)
+		return (0);
+	img->data[x + y * img->size_l / 4 ] = colour;
+	return (0);
 }

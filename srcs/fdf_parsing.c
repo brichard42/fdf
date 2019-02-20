@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 16:06:20 by evogel           ###   ########.fr       */
+/*   Updated: 2019/02/20 17:17:07 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int		**put_in_tab(t_list *begin, int num_line)
 		get_x_num(line, &count);
 		if (!(file[i] = ft_memalloc((count) * 4)))
 		{
-			//+++++++ TABDEL ICI SINON LEAKS ++++++++
+			//+++++++ TABDEL ICI SINON LEAKS ++++++++//
 			return (NULL);
 		}
 		j = 0;
@@ -54,11 +54,11 @@ static int		**put_in_tab(t_list *begin, int num_line)
 			if (ft_isdigit(*line))
 			{
 				file[i][j] = ft_atoi(line);
-				while (*line && ft_isdigit(*line))
+				while (ft_isdigit(*line))
 					++line;
 				++j;
 			}
-			//if (*line && !(ft_isdigit(*line))) //Em: I think this is unnecessary
+			if (*line)
 				++line;
 		}
 		begin = begin->next;
