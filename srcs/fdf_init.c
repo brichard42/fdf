@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:44:37 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 12:01:23 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/20 14:29:46 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int		init_img(t_mlx *env, int width, int height)
 
 	if (!(env->img.img_ptr = mlx_new_image(env->mlx_ptr, width, height)))
 		pexit(5);
-	if (!(data = (int *)mlx_get_data_addr(env->img.img_ptr, &bpp, &endian)))
+	if (!(data = (int *)mlx_get_data_addr(env->img.img_ptr, &bpp, &(env->img.size_l), &endian)))
 		pexit(6);
 }

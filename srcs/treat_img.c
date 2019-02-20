@@ -1,21 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image_pixel_put.c                                  :+:      :+:    :+:   */
+/*   treat_img.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/12 18:15:58 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 15:55:23 by evogel           ###   ########.fr       */
+/*   Created: 2019/02/20 15:37:02 by evogel            #+#    #+#             */
+/*   Updated: 2019/02/20 15:39:53 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libgraph.h"
+#include "fdf.h"
 
-int		image_pixel_put(t_img *img, int x, int y, int colour)
+void	draw_image(char* data, int **file)
 {
-	if ((x + y  * img->size_l / 4) > img->data_size)
-		return (0);
-	img->data[x + y * img->size_l / 4 ] = colour;
-	return (0);
 }

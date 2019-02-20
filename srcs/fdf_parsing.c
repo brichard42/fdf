@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 11:12:29 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/20 16:06:20 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int		**put_in_tab(t_list *begin, int num_line)
 					++line;
 				++j;
 			}
-			if (*line && !(ft_isdigit(*line)))
+			//if (*line && !(ft_isdigit(*line))) //Em: I think this is unnecessary
 				++line;
 		}
 		begin = begin->next;
@@ -96,30 +96,31 @@ static int		put_in_lst(const int fd, t_list **begin)
 	return (num_line);
 }
 
-int				fdf_parsing(char *av, int ***file)
+int				**fdf_parsing(char *av)
 {
 	int		fd;
 	t_list	*begin;
 	int		num_line;
+	int		**file;
 
 	begin = NULL;
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
-		return (-1);
+		return (NULL);
 	if ((num_line = put_in_lst(fd, &begin)) == -1)
 	{
 		if (close(fd) == -1)
-			return (-1);
-		return (-1);
+			return (NULL);
+		return (NULL);
 	}
-	if (!(*file = put_in_tab(begin, num_line)))
+	if (!(file = put_in_tab(begin, num_line)))
 	{
 		ft_lstdel(&begin, ft_del_cont);
 		if (close(fd) == -1)
-			return (-1);
-		return (-1);
+			return (NULL);
+		return (NULL);
 	}
 	if (close(fd) == -1)
-		return (-1);
-	return (0);
+		return (NULL);
+	return (file);
 }
