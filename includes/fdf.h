@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 17:29:29 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/20 22:11:11 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,19 @@
 # include <unistd.h>
 # include "fdf_structs.h"
 
-# define W_HEIGHT 900
-# define W_WIDTH 1600
+# define W_HEIGHT 1080
+# define W_WIDTH 1920
 
 /*
-**	IMAGE_PIXEL_PUT.C
+**	treat_img.c.C
+*/
+
+void	fdf_get_scale(t_file *file);
+void	treat_img(t_file file, t_mlx *env);
+void	bresenham(t_img *img, t_point pt1, t_point pt2);
+
+/*
+**	image_pixel_put.c
 */
 
 int		image_pixel_put(t_img *img, int x, int y, int colour);
