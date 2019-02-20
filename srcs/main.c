@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 17:17:13 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/20 18:18:29 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ mlx_hook - localised in .h
 optimise bresenham - pas de calculs pour pts en dehors de l'img
 */
 
-static int	task_manager(int **file)
+static int	task_manager(t_file file)
 {
 	t_mlx	env;
 
@@ -32,12 +32,22 @@ static int	task_manager(int **file)
 
 int			main(int ac, char **av)
 {
-	int		**file;
+	t_file	file;
 
 	if (ac != 2)
 		return (0);
-	if (!(file = fdf_parsing(av[1])))
+	if ((fdf_parsing(av[1], &file)) == -1)
 		pexit(E_FDF_PARSING);
+	int i = 0;
+	while (file.tab[i])
+	{
+		int j = 0;
+		while (j < 6)
+			ft_printf("[%02d]\t", file.tab[i][j++]);
+		ft_putchar('\n');
+		++i;
+	}
+	ft_printf("x_len = {%d} | y_len = {%d}\n", file.x_len, file.y_len);
 	task_manager(file);
 	return (0);
 }

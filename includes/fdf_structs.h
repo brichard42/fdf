@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:12:31 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 17:12:41 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/20 17:20:40 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,12 @@ typedef struct	s_point
 	int			y;
 	int			z;
 }				t_point;
+
+typedef struct	s_file
+{
+	int			**tab;
+	int			x_len;
+	int			y_len;
+}				t_file;
 
 #endif

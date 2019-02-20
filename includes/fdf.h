@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 17:17:08 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/20 17:29:29 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,7 @@ int		image_pixel_put(t_img *img, int x, int y, int colour);
 **	fdf_parsing.c
 */
 
-int		**fdf_parsing(char *av);
-
-/*
-**	fdf_JESAISPAS.c
-*/
-
-void	apply_scale_on_lst(t_list *lst, int scale);
+int		fdf_parsing(char *av, t_file *file);
 
 /*
 **	fdf_init.c

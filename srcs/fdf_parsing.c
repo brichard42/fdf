@@ -6,55 +6,59 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 17:17:07 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/20 18:16:19 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void		get_x_num(char *line, int *count)
+static int		get_x_num(char *line)
 {
-	*count = 0;
+	int count;
+
+	count = 0;
 	while (*line)
 	{
-		if (ft_isdigit(*line))
+		if (*line != ' ')
 		{
-			++*count;
-			while (*line && ft_isdigit(*line))
+			++count;
+			while (*line && *line != ' ')
 				++line;
 		}
-		if (*line && !(ft_isdigit(*line)))
+		if (*line)
 			++line;
 	}
+	return (count);
 }
 
-static int		**put_in_tab(t_list *begin, int num_line)
+static int		put_in_tab(t_list *begin, t_file *file)
 {
 	int		i;
 	int		j;
 	char	*line;
-	int		count;
-	int		**file;
 
-	if (!(file = ft_memalloc((num_line + 1) * sizeof(int *))))
-		return (NULL);
+	if (!(file->tab = (int **)ft_memalloc((file->y_len + 1) * sizeof(int *))))
+		return (-1);
 	i = 0;
+	line = (char *)begin->content;
+	file->x_len = get_x_num(line);
 	while (begin && begin->content)
 	{
 		line = (char *)begin->content;
-		get_x_num(line, &count);
-		if (!(file[i] = ft_memalloc((count) * 4)))
+		if (get_x_num(line) != file->x_len)
+			return (-2); //+++++++ADD USAGE "INVALID FILE" HERE+++++++//
+		if (!(file->tab[i] = (int *)ft_memalloc(file->x_len * 4)))
 		{
 			//+++++++ TABDEL ICI SINON LEAKS ++++++++//
-			return (NULL);
+			return (-1);
 		}
 		j = 0;
 		while (*line)
 		{
-			if (ft_isdigit(*line))
+			if (*line != ' ')
 			{
-				file[i][j] = ft_atoi(line);
-				while (ft_isdigit(*line))
+				file->tab[i][j] = ft_atoi(line);
+				while (*line != ' ' && *line)
 					++line;
 				++j;
 			}
@@ -64,7 +68,7 @@ static int		**put_in_tab(t_list *begin, int num_line)
 		begin = begin->next;
 		++i;
 	}
-	return (file);
+	return (0);
 }
 
 static int		put_in_lst(const int fd, t_list **begin)
@@ -96,31 +100,29 @@ static int		put_in_lst(const int fd, t_list **begin)
 	return (num_line);
 }
 
-int				**fdf_parsing(char *av)
+int				fdf_parsing(char *av, t_file *file)
 {
 	int		fd;
 	t_list	*begin;
-	int		num_line;
-	int		**file;
 
 	begin = NULL;
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
-		return (NULL);
-	if ((num_line = put_in_lst(fd, &begin)) == -1)
+		return (-1);
+	if ((file->y_len = put_in_lst(fd, &begin)) == -1)
 	{
 		if (close(fd) == -1)
-			return (NULL);
-		return (NULL);
+			return (-1);
+		return (-1);
 	}
-	if (!(file = put_in_tab(begin, num_line)))
+	if ((put_in_tab(begin, file)) < 0)
 	{
 		ft_lstdel(&begin, ft_del_cont);
 		if (close(fd) == -1)
-			return (NULL);
-		return (NULL);
+			return (-1);
+		return (-1);
 	}
 	if (close(fd) == -1)
-		return (NULL);
-	return (file);
+		return (-1);
+	return (0);
 }
