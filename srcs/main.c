@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 11:16:44 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/20 11:28:49 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ static void	init_window(t_mlx *mlx)
 											W_HEIGHT, "MyWindow")))
 		pexit(E_MLX_NEW_WINDOW);
 }
+
+/*
+int		init_window - creates win
+int		init_img - creates img (put in t_img)
+int		treat_img - act on the char* data
+
+mlx_hook - localised in .h
+optimise bresenham - pas de calculs pour pts en dehors de l'img
+
+
+*/
 
 static int	task_manager(int **file)
 {
