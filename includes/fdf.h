@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/18 17:55:13 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/20 11:12:47 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define W_HEIGHT 900
 # define W_WIDTH 1600
 
-int		fdf_parsing(char *av, int **file);
+int		fdf_parsing(char *av, int ***file);
 void	apply_scale_on_lst(t_list *lst, int scale);
 
 #endif

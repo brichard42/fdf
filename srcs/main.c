@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/19 14:28:58 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/20 11:16:44 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			main(int ac, char **av)
 	file = NULL;
 	if (ac != 2)
 		return (0);
-	if ((fdf_parsing(av[1], file)) == -1)
+	if ((fdf_parsing(av[1], &file)) == -1)
 		pexit(E_FDF_PARSING);
 	task_manager(file);
 	return (0);
