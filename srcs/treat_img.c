@@ -6,31 +6,35 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:37:02 by evogel            #+#    #+#             */
-/*   Updated: 2019/02/21 17:21:12 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 17:53:03 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*void	centerise(t_file *file)
+void	centerise(t_file *file)
 {
 	int		i;
 	int		j;
+	int		x_center;
+	int		y_center;
 
+	ft_printf("%d %d\n", file->x_len / file->scale, file->y_len / file->scale);
+	x_center = W_WIDTH / 2 - file->pts[file->x_len][file->y_len]->x / 2;
+	y_center = W_WIDTH / 2 - file->pts[file->x_len][file->y_len]->y / 2;
 	i = 0;
 	while (file->pts[i])
 	{
 		j = 0;
 		while (file->pts[i][j])
 		{
-			file->pts[i][j]->x += W_WIDTH / 2 - map_len_x(begin) / 2;
-			file->pts[i][j]->x += W_HEIGHT / 2 - map_len_y(begin) / 2;
-
+			file->pts[i][j]->x += x_center;
+			file->pts[i][j]->x += y_center;
 			++j;
 		}
 		++i;
 	}
-}*/
+}
 
 void	fdf_apply_scale(t_file *file)
 {
@@ -63,6 +67,7 @@ void	treat_img(t_file *file, t_mlx *env)
 	int j;
 
 	fdf_apply_scale(file);
+	centerise(file);
 	i = 0;
 	while (file->pts[i])
 	{
@@ -93,8 +98,8 @@ void	bresenham(t_img *img, t_point pt1, t_point pt2)
 	int		yincr;
 	int		i;
 
-	ex = abs(pt2.x - pt1.x);
-	ey = abs(pt2.y - pt1.y);
+	ex = ft_abs(pt2.x - pt1.x);
+	ey = ft_abs(pt2.y - pt1.y);
 	dx = 2 * ex;
 	dy = 2 * ey;
 	dex = ex;

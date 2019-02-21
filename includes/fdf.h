@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/21 17:00:31 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 17:53:02 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 **	treat_img.c.C
 */
 
+void	centerise(t_file *file);
 void	fdf_get_scale(t_file *file);
 void	treat_img(t_file *file, t_mlx *env);
 void	bresenham(t_img *img, t_point pt1, t_point pt2);
@@ -65,5 +66,6 @@ int		pexit(int exit_value);
 */
 
 t_point		*ft_t_pointnew(int x, int y, int z);
+int			ft_abs(int a);
 
 #endif
