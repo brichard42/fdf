@@ -1,46 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_structs.h                                      :+:      :+:    :+:   */
+/*   ft_t_pointnew.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/20 17:12:31 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/21 16:04:30 by brichard         ###   ########.fr       */
+/*   Created: 2019/02/21 15:17:34 by brichard          #+#    #+#             */
+/*   Updated: 2019/02/21 16:43:03 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_STRUCTS_H
-# define FDF_STRUCTS_H
+#include "fdf.h"
 
-typedef struct	s_img
+t_point		*ft_t_pointnew(int x, int y, int z)
 {
-	void		*img_ptr;
-	int			*data;
-	int			data_size;
-	int			size_l;
-}				t_img;
+	t_point		*pts;
 
-typedef struct	s_mlx
-{
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_img		img;
-}				t_mlx;
-
-typedef struct	s_point
-{
-	int			x;
-	int			y;
-	int			z;
-}				t_point;
-
-typedef struct	s_file
-{
-	t_point		***pts;
-	int			x_len;
-	int			y_len;
-	int			scale;
-}				t_file;
-
-#endif
+	if (!(pts = ft_memalloc(sizeof(t_point))))
+		return (NULL);
+	pts->x = x;
+	pts->y = y;
+	pts->z = z;
+	return (pts);
+}

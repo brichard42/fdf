@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#P_FDF='/Users/evogel/42Projects/fdf_team/'
+P_FDF='/Users/brichard/Projects/FilDeFer/fdf/'
+
 algood()
 {
 	echo "All Good!"
@@ -64,8 +67,6 @@ gc()
 		esac
 	done
 }
-
-P_FDF='/Users/evogel/42Projects/fdf_team/'
 
 tput clear
 if [ "$1" = "re" ]; then

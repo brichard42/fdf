@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/21 14:38:44 by evogel           ###   ########.fr       */
+/*   Updated: 2019/02/21 17:00:46 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void		fill_pts(t_point **pts, int i, char **line)
 {
 	int j;
 	int neg;
+	int	res;
 
 	neg = 1;
 	j = 0;
@@ -42,20 +43,21 @@ static void		fill_pts(t_point **pts, int i, char **line)
 	{
 		if (**line != ' ')
 		{
-			(*pts)[j].x = j;
-			(*pts)[j].y = i;
+			res = 0;
 			if (**line == '-' && ++*line)
 				neg = -1;
 			while (ft_isdigit(**line))
 			{
-				(*pts)[j].z = (*pts)[j].z * 10 + (**line - '0') * neg;
+				res = res * 10 + (**line - '0') * neg;
 				++*line;
 			}
+			pts[j] = ft_t_pointnew(j, i, res);
 			++j;
 		}
 		if (**line)
 			++*line;
 	}
+	pts[j] = NULL;
 }
 
 static int		make_pts(t_list *begin, t_file *file)
@@ -63,7 +65,7 @@ static int		make_pts(t_list *begin, t_file *file)
 	int		i;
 	char	*line;
 
-	if (!(file->pts = (t_point **)ft_memalloc(sizeof(t_point *) * (file->y_len + 1))))
+	if (!(file->pts = (t_point ***)ft_memalloc(sizeof(t_point **) * (file->y_len + 1))))
 		return (-1);
 	line = (char *)begin->content;
 	file->x_len = get_x_num(line);
@@ -73,12 +75,12 @@ static int		make_pts(t_list *begin, t_file *file)
 		line = begin->content;
 		if (get_x_num(line) != file->x_len)
 			return (-1); //+++++ USAGE INVALID FILE +++++//
-		if (!(file->pts[i] = (t_point *)ft_memalloc(sizeof(t_point) * (file->x_len + 1))))
+		if (!(file->pts[i] = (t_point **)ft_memalloc(sizeof(t_point*) * (file->x_len + 1))))
 		{
 			//+++++++ TABDEL ICI SINON LEAKS ++++++++//
 			return (-1);
 		}
-		fill_pts(&(file->pts[i]), i, &line);
+		fill_pts(file->pts[i], i, &line);
 		begin = begin->next;
 		++i;
 	}

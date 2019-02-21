@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/21 12:26:13 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 17:00:31 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,11 @@ void	init_window(t_mlx *env);
 */
 
 int		pexit(int exit_value);
+
+/*
+**	ft_*.c
+*/
+
+t_point		*ft_t_pointnew(int x, int y, int z);
 
 #endif
