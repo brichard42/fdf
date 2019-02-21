@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:37:02 by evogel            #+#    #+#             */
-/*   Updated: 2019/02/21 18:03:56 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 18:59:34 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	centerise(t_file *file)
 	int		x_center;
 	int		y_center;
 
-	x_center = W_WIDTH / 2 - file->pts[file->y_len - 1][file->x_len - 1]->x / 2;
-	y_center = W_HEIGHT / 2 - file->pts[file->y_len - 1][file->x_len - 1]->y / 2;
+	x_center = (W_WIDTH - file->pts[file->y_len - 1][file->x_len - 1]->x) / 2;
+	y_center = (W_HEIGHT - file->pts[file->y_len - 1][file->x_len - 1]->y) / 2;
 	i = 0;
 	while (file->pts[i])
 	{

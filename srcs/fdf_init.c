@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:44:37 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/21 18:04:00 by evogel           ###   ########.fr       */
+/*   Updated: 2019/02/21 18:59:02 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ void	fdf_get_scale(t_file *file)
 	int i;
 	int j;
 
+	i = 0;
+	j = 0;
 	while (file->pts[i])
 		i++;
-	while (file->(*pts)[j])
+	while (file->pts[0][j])
 		j++;
-	if (W_WIDTH - j > W_HEIGHT - i)
-		file->scale = (int)(W_WIDTH / j);
+	if ((W_WIDTH / j) < (W_HEIGHT / i))
+		file->scale = (W_WIDTH / j);
 	else
-		file->scale = (int)(W_HEIGHT / i);
+		file->scale = (W_HEIGHT / i);
 }
 
 void	init_window(t_mlx *env)
