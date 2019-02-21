@@ -6,20 +6,26 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:37:02 by evogel            #+#    #+#             */
-/*   Updated: 2019/02/20 22:18:00 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 12:26:14 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fdf_get_scale(t_file *file)
+void	fdf_apply_scale(t_file *file)
 {
-	file->scale = (W_WIDTH > W_HEIGHT ? W_HEIGHT : W_WIDTH) 
-					/ (file->x_len > file->y_len ? file->x_len : file->y_len);
-	int i = 0;
+	static int	current = 0;
+	int			i;
+	int			j;
+
+	if (current != file->scale)
+		current = file->scale;
+	else
+		return ;
+	i = 0;
 	while (file->tab[i])
 	{
-		int j = 0;
+		j = 0;
 		while (j < file->x_len)
 		{
 			file->pts[i][j].x = j * file->scale;
@@ -29,28 +35,30 @@ void	fdf_get_scale(t_file *file)
 		}
 		++i;
 	}
+
 }
 
-void	treat_img(t_file file, t_mlx *env)
+void	treat_img(t_file *file, t_mlx *env)
 {
 	int i;
 	int j;
 
+	fdf_apply_scale(file);
 	i = 0;
-	while (i < file.y_len)
+	while (i < file->y_len)
 	{
 		j = 0;
-		while (j < file.x_len)
+		while (j < file->x_len)
 		{
-			if (!(j + 1 > file.x_len))
-				bresenham(&env->img, file.pts[i][j], file.pts[i][j + 1]);
-			if (!(i + 1 > file.y_len))
-				bresenham(&env->img, file.pts[i][j], file.pts[i + 1][j]);
+			if (j + 1 < file->x_len)
+				bresenham(&env->img, file->pts[i][j], file->pts[i][j + 1]);
+			if (i + 1 < file->y_len)
+				bresenham(&env->img, file->pts[i][j], file->pts[i + 1][j]);
 			++j;
 		}
 		++i;
 	}
-	mlx_put_image_to_window((char *)env->img.data, env->win_ptr, env->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img.img_ptr, 0, 0);
 }
 
 void	bresenham(t_img *img, t_point pt1, t_point pt2)
