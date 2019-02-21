@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 22:18:07 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 13:01:20 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,6 @@ int			main(int ac, char **av)
 		return (0);
 	if ((fdf_parsing(av[1], &file)) == -1)
 		pexit(E_FDF_PARSING);
-	int i = 0;
-	int j;
-	while (file.tab[i])
-	{
-		j = 0;
-		while (j < 6)
-			ft_printf("[%02d]\t", file.tab[i][j++]);
-		ft_putchar('\n');
-		++i;
-	}
-	ft_printf("x_len = {%d} | y_len = {%d}\n", file.x_len, file.y_len);
 	task_manager(file);
 	return (0);
 }

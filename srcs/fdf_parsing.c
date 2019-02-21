@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 22:18:04 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 13:51:46 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,43 +31,54 @@ static int		get_x_num(char *line)
 	return (count);
 }
 
-static int		put_in_tab(t_list *begin, t_file *file)
+static void		fill_pts(t_point **pts, int i, char **line)
+{
+	int j;
+	int neg;
+
+	neg = 1;
+	j = 0;
+	while (**line)
+	{
+		if (**line != ' ')
+		{
+			(*pts)[j].x = j;
+			(*pts)[j].y = i;
+			if (**line == '-' && ++*line)
+				neg = -1;
+			while (ft_isdigit(**line))
+				(*pts)[j].z = (*pts)[j].z * 10 + (**line - '0') * neg;
+			++j;
+		}
+		if (**line)
+			++*line;
+	}
+}
+
+static int		make_pts(t_list *begin, t_file *file)
 {
 	int		i;
-	int		j;
+	int		count;
 	char	*line;
 
-	if (!(file->tab = (int **)ft_memalloc((file->y_len + 1) * sizeof(int *))))
+	if (!(file->pts = (t_point **)ft_memalloc(sizeof(t_point *) * (file->y_len + 1))))
 		return (-1);
 	i = 0;
-	line = (char *)begin->content;
-	file->x_len = get_x_num(line);
 	while (begin && begin->content)
 	{
 		line = (char *)begin->content;
-		if (get_x_num(line) != file->x_len)
-			return (-2); //+++++++ADD USAGE "INVALID FILE" HERE+++++++//
-		if (!(file->tab[i] = (int *)ft_memalloc(file->x_len * 4)))
+		if ((count = get_x_num(line)) > file->x_len)
+			file->x_len = count; //if the count is bigger than current x_len, save new max x_len//
+		if (!(file->pts[i] = (t_point *)ft_memalloc(sizeof(t_point) * (file->x_len + 1))))
 		{
 			//+++++++ TABDEL ICI SINON LEAKS ++++++++//
 			return (-1);
 		}
-		j = 0;
-		while (*line)
-		{
-			if (*line != ' ')
-			{
-				file->tab[i][j] = ft_atoi(line);
-				while (*line != ' ' && *line)
-					++line;
-				++j;
-			}
-			if (*line)
-				++line;
-		}
+		fill_pts(&(file->pts[i]), i, &line);
 		begin = begin->next;
 		++i;
 	}
+	file->pts[i] = NULL;
 	return (0);
 }
 
@@ -115,7 +126,7 @@ int				fdf_parsing(char *av, t_file *file)
 			return (-1);
 		return (-1);
 	}
-	if ((put_in_tab(begin, file)) < 0)
+	if ((make_pts(begin, file)) < 0)
 	{
 		ft_lstdel(&begin, ft_del_cont);
 		if (close(fd) == -1)

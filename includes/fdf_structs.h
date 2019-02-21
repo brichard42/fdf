@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:12:31 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 21:38:24 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 12:08:47 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,14 @@ typedef struct	s_point
 	int			x;
 	int			y;
 	int			z;
-}				t_point;//useless
+}				t_point;
 
 typedef struct	s_file
 {
-	int			**tab;
+	t_point		**pts;
 	int			x_len;
 	int			y_len;
 	int			scale;
-	t_point		pts[250][250];
 }				t_file;
 
 #endif

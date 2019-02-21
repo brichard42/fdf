@@ -65,19 +65,21 @@ gc()
 	done
 }
 
+P_FDF='/Users/evogel/42Projects/fdf_team/'
+
 tput clear
 if [ "$1" = "re" ]; then
-	make re -C ~/Projects/FilDeFer/fdf
+	make re -C $P_FDF
 	if [ $? -eq 0 ]; then
 		algood
-		/Users/brichard/Projects/FilDeFer/fdf/fdf $2
+		$P_FDF/fdf $2
 	fi
 elif [ "$1" = "git" ]; then 
 	gc
 else
-	make -C ~/Projects/FilDeFer/fdf
+	make -C $P_FDF
 	if [ $? -eq 0 ]; then
 		algood
-		/Users/brichard/Projects/FilDeFer/fdf/fdf $1
+		$P_FDF/fdf $1
 	fi
 fi
