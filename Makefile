@@ -6,7 +6,7 @@
 #    By: brichard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by brichard          #+#    #+#              #
-#    Updated: 2019/02/20 20:42:38 by brichard         ###   ########.fr        #
+#    Updated: 2019/02/21 14:31:38 by evogel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 INC_FLAGS = $(addprefix -I , $(LIB_INC))
+
+SANITIZE = -g -g3 -fsanitize=address
 
 LIB = libraries
 
@@ -111,6 +113,9 @@ all: $(NAME)
 
 $(NAME): lib $(OBJS_PATH) $(INC) $(D_OBJS)
 	@$(call run_and_test, $(CC) $(CFLAGS) -o $(NAME) $(D_OBJS) -I $(MLX_PATH)/include/ -L $(MLX_PATH)/lib/ -lmlx -framework OpenGL -framework AppKit -L ./$(LIB)/libft -lft )
+
+sanitize: lib $(OBJS_PATH) $(INC) $(D_OBJS)
+	@$(call run_and_test, $(CC) $(CFLAGS) $(SANITIZE) -o $(NAME) $(D_OBJS) -I $(MLX_PATH)/include/ -L $(MLX_PATH)/lib/ -lmlx -framework OpenGL -framework AppKit -L ./$(LIB)/libft -lft )
 
 $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 	@$(call run_and_test, $(CC) $(CFLAGS) -o $@ -c $< -I $(INC)  $(INC_FLAGS))

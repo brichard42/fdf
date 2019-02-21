@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:37:02 by evogel            #+#    #+#             */
-/*   Updated: 2019/02/21 12:26:14 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 14:16:55 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,18 @@ void	fdf_apply_scale(t_file *file)
 	else
 		return ;
 	i = 0;
-	while (file->tab[i])
+	while (file->pts[i])
 	{
 		j = 0;
 		while (j < file->x_len)
 		{
-			file->pts[i][j].x = j * file->scale;
-			file->pts[i][j].y = i * file->scale;
-			file->pts[i][j].z = file->tab[i][j] * file->scale;
+			file->pts[i][j].x = file->pts[i][j].x * file->scale;
+			file->pts[i][j].y = file->pts[i][j].y * file->scale;
+			file->pts[i][j].z = file->pts[i][j].z * file->scale;
 			++j;
 		}
 		++i;
 	}
-
 }
 
 void	treat_img(t_file *file, t_mlx *env)

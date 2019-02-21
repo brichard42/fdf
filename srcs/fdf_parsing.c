@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/21 13:51:46 by evogel           ###   ########.fr       */
+/*   Updated: 2019/02/21 14:38:44 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ static void		fill_pts(t_point **pts, int i, char **line)
 			if (**line == '-' && ++*line)
 				neg = -1;
 			while (ft_isdigit(**line))
+			{
 				(*pts)[j].z = (*pts)[j].z * 10 + (**line - '0') * neg;
+				++*line;
+			}
 			++j;
 		}
 		if (**line)
@@ -58,17 +61,18 @@ static void		fill_pts(t_point **pts, int i, char **line)
 static int		make_pts(t_list *begin, t_file *file)
 {
 	int		i;
-	int		count;
 	char	*line;
 
 	if (!(file->pts = (t_point **)ft_memalloc(sizeof(t_point *) * (file->y_len + 1))))
 		return (-1);
+	line = (char *)begin->content;
+	file->x_len = get_x_num(line);
 	i = 0;
 	while (begin && begin->content)
 	{
-		line = (char *)begin->content;
-		if ((count = get_x_num(line)) > file->x_len)
-			file->x_len = count; //if the count is bigger than current x_len, save new max x_len//
+		line = begin->content;
+		if (get_x_num(line) != file->x_len)
+			return (-1); //+++++ USAGE INVALID FILE +++++//
 		if (!(file->pts[i] = (t_point *)ft_memalloc(sizeof(t_point) * (file->x_len + 1))))
 		{
 			//+++++++ TABDEL ICI SINON LEAKS ++++++++//
@@ -93,7 +97,7 @@ static int		put_in_lst(const int fd, t_list **begin)
 	num_line = 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		if (!(new = ft_lstnew((void *)line, ft_strlen(line))))
+		if (!(new = ft_lstnew((void *)line, ft_strlen(line) + 1)))
 		{
 			ft_lstdel(begin, ft_del_cont);
 			ft_memdel((void **)&line);
