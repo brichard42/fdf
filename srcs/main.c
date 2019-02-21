@@ -6,14 +6,17 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 22:18:07 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 12:26:16 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 /*
+parsing - FICHIER = CARRER OU RECTANGLE SINON INVALIDE
+
 int		treat_img - act on the char* data
+
 
 mlx_hook - localised in .h
 optimise bresenham - pas s en dehors de l'img
@@ -23,24 +26,10 @@ static int	task_manager(t_file file)
 {
 	t_mlx	env;
 
-	(void)file;
 	init_window(&env);
 	init_img(&env, W_WIDTH, W_HEIGHT);
-	fdf_get_scale(&file);
-	int i = 0;
-	while (i < file.y_len)
-	{
-		int j = 0;
-		while (j < file.x_len)
-		{
-			ft_printf("[%03d ", file.pts[i][j].x);
-			ft_printf("%03d ", file.pts[i][j].y);
-			ft_printf("%03d]\n", file.pts[i][j].z);
-			++j;
-		}
-		++i;
-	}
-	treat_img(file, &env);
+	fdf_get_scale(&file);//++++++END OF INIT++++++//
+	treat_img(&file, &env);//+++++SHOULD BE CALLED AFTER ANY KIND OF CHANGES, I.E SCALE..VUE..ETC.+++++//
 	mlx_loop(env.mlx_ptr);
 	return (0);
 }
@@ -53,17 +42,6 @@ int			main(int ac, char **av)
 		return (0);
 	if ((fdf_parsing(av[1], &file)) == -1)
 		pexit(E_FDF_PARSING);
-	int i = 0;
-	int j;
-	while (file.tab[i])
-	{
-		j = 0;
-		while (j < 6)
-			ft_printf("[%02d]\t", file.tab[i][j++]);
-		ft_putchar('\n');
-		++i;
-	}
-	ft_printf("x_len = {%d} | y_len = {%d}\n", file.x_len, file.y_len);
 	task_manager(file);
 	return (0);
 }

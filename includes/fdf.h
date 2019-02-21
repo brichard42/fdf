@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 22:11:11 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 12:26:13 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 */
 
 void	fdf_get_scale(t_file *file);
-void	treat_img(t_file file, t_mlx *env);
+void	treat_img(t_file *file, t_mlx *env);
 void	bresenham(t_img *img, t_point pt1, t_point pt2);
 
 /*

@@ -6,11 +6,17 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:44:37 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/20 17:17:07 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 12:26:15 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	fdf_get_scale(t_file *file)
+{
+	file->scale = (W_WIDTH > W_HEIGHT ? W_HEIGHT : W_WIDTH) 
+					/ (file->x_len > file->y_len ? file->x_len : file->y_len);
+}
 
 void	init_window(t_mlx *env)
 {
