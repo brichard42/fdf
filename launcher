@@ -14,7 +14,7 @@ algood()
 
 clo()
 {
-	clear
+	tput clear
 	read -p "Where is it? " add
 	read -p "Where does it go? " loc
 	git clone $add $loc
@@ -22,7 +22,7 @@ clo()
 
 pu()
 {
-	clear
+	tput clear
 	git add ./
 	git status
 	read -p "On commit? y/n "
@@ -44,7 +44,7 @@ pu()
 
 gc()
 {
-	clear
+	tput clear
 	select choice in "git clone" "git push" "exit"
 	do
 		case $REPLY in
@@ -65,7 +65,7 @@ gc()
 	done
 }
 
-clear
+tput clear
 if [ "$1" = "re" ]; then
 	make re -C ~/Projects/FilDeFer/fdf
 	if [ $? -eq 0 ]; then
