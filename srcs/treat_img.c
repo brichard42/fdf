@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:37:02 by evogel            #+#    #+#             */
-/*   Updated: 2019/02/21 17:53:03 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/21 18:03:56 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ void	centerise(t_file *file)
 	int		x_center;
 	int		y_center;
 
-	ft_printf("%d %d\n", file->x_len / file->scale, file->y_len / file->scale);
-	x_center = W_WIDTH / 2 - file->pts[file->x_len][file->y_len]->x / 2;
-	y_center = W_WIDTH / 2 - file->pts[file->x_len][file->y_len]->y / 2;
+	x_center = W_WIDTH / 2 - file->pts[file->y_len - 1][file->x_len - 1]->x / 2;
+	y_center = W_HEIGHT / 2 - file->pts[file->y_len - 1][file->x_len - 1]->y / 2;
 	i = 0;
 	while (file->pts[i])
 	{
@@ -29,7 +28,7 @@ void	centerise(t_file *file)
 		while (file->pts[i][j])
 		{
 			file->pts[i][j]->x += x_center;
-			file->pts[i][j]->x += y_center;
+			file->pts[i][j]->y += y_center;
 			++j;
 		}
 		++i;
