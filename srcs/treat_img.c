@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:37:02 by evogel            #+#    #+#             */
-/*   Updated: 2019/02/21 20:33:55 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/22 13:32:37 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	fdf_apply_scale(t_file *file)
 		j = 0;
 		while (file->pts[i][j])
 		{
-			file->pts[i][j]->x *= file->scale;
-			file->pts[i][j]->y *= file->scale;
-			file->pts[i][j]->z *= file->scale;
+			file->pts[i][j]->x *= file->scale / 2;
+			file->pts[i][j]->y *= file->scale / 2;
+			file->pts[i][j]->z *= -8;
 			iso(&file->pts[i][j]->x, &file->pts[i][j]->y, file->pts[i][j]->z);
 			++j;
 		}
@@ -79,6 +79,7 @@ void	treat_img(t_file *file, t_mlx *env)
 
 	fdf_apply_scale(file);
 	centerise(file);
+	put_tpoint(file->pts);
 	i = 0;
 	while (file->pts[i])
 	{
