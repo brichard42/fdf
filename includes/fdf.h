@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/22 19:17:34 by evogel           ###   ########.fr       */
+/*   Updated: 2019/02/23 10:47:04 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 */
 
 void	do_maths(t_file *file, char *str);
-void	treat_img(t_file *file, t_mlx *env);
+void	treat_img(t_mlx *env);
 void	bresenham(t_img *img, t_point pt1, t_point pt2);
 void	scale_view(t_file *file);
 void	center_view(t_file *file);

@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/23 10:32:38 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/23 10:46:46 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int			do_key(int keycode, void *param)
 		scale_view(&env->file);
 		center_view(&env->file);
 	}
-	treat_img(&env->file, env);//+++++SHOULD BE CALLED AFTER ANY KIND OF CHANGES, I.E SCALE..VUE..ETC.+++++//
+	treat_img(env);//+++++SHOULD BE CALLED AFTER ANY KIND OF CHANGES, I.E SCALE..VUE..ETC.+++++//
 	return (0);
 }
 
