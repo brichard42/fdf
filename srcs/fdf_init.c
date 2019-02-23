@@ -6,28 +6,11 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 11:44:37 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/22 14:27:58 by evogel           ###   ########.fr       */
+/*   Updated: 2019/02/22 16:42:12 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	fdf_get_scale(t_file *file)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (file->pts[i])
-		i++;
-	while (file->pts[0][j])
-		j++;
-	if ((W_WIDTH / j) < (W_HEIGHT / i))
-		file->scale = (W_WIDTH / j);
-	else
-		file->scale = (W_HEIGHT / i);
-}
 
 void	fdf_init(t_mlx *env, int width, int height)
 {

@@ -6,80 +6,17 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:37:02 by evogel            #+#    #+#             */
-/*   Updated: 2019/02/22 13:32:37 by evogel           ###   ########.fr       */
+/*   Updated: 2019/02/22 21:40:15 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-static void iso(int *x, int *y, int z)
-{
-	int previous_x;
-	int previous_y;
-
-	previous_x = *x;
-	previous_y = *y;
-	*x = (previous_x - previous_y) * cos(0.523599);
-	*y = -z + (previous_x + previous_y) * sin(0.523599);
-}
-
-void	centerise(t_file *file)
-{
-	int		i;
-	int		j;
-	int		x_center;
-	int		y_center;
-
-	x_center = (W_WIDTH - file->pts[file->y_len - 1][file->x_len - 1]->x) / 2;
-	y_center = (W_HEIGHT - file->pts[file->y_len - 1][file->x_len - 1]->y) / 2;
-	i = 0;
-	while (file->pts[i])
-	{
-		j = 0;
-		while (file->pts[i][j])
-		{
-			file->pts[i][j]->x += x_center;
-			file->pts[i][j]->y += y_center;
-			++j;
-		}
-		++i;
-	}
-}
-
-void	fdf_apply_scale(t_file *file)
-{
-	static int	current = 0;
-	int			i;
-	int			j;
-
-	if (current != file->scale)
-		current = file->scale;
-	else
-		return ;
-	i = 0;
-	while (file->pts[i])
-	{
-		j = 0;
-		while (file->pts[i][j])
-		{
-			file->pts[i][j]->x *= file->scale / 2;
-			file->pts[i][j]->y *= file->scale / 2;
-			file->pts[i][j]->z *= -8;
-			iso(&file->pts[i][j]->x, &file->pts[i][j]->y, file->pts[i][j]->z);
-			++j;
-		}
-		++i;
-	}
-}
 
 void	treat_img(t_file *file, t_mlx *env)
 {
 	int i;
 	int j;
 
-	fdf_apply_scale(file);
-	centerise(file);
-	put_tpoint(file->pts);
 	i = 0;
 	while (file->pts[i])
 	{
@@ -90,7 +27,7 @@ void	treat_img(t_file *file, t_mlx *env)
 				bresenham(&env->img, *file->pts[i][j], *file->pts[i][j + 1]);
 			if (file->pts[i + 1])
 				bresenham(&env->img, *file->pts[i][j], *file->pts[i + 1][j]);
-			image_pixel_put(&env->img, file->pts[i][j]->x, file->pts[i][j]->y, 0x0000FF);
+			image_pixel_put(&env->img, file->pts[i][j]->x, file->pts[i][j]->y, 0xFFFFFF);
 			++j;
 		}
 		++i;
@@ -127,7 +64,7 @@ void	bresenham(t_img *img, t_point pt1, t_point pt2)
 	{
 		while (i <= dex)
 		{
-			image_pixel_put(img, pt1.x, pt1.y, 0x00FFFF);
+			image_pixel_put(img, pt1.x, pt1.y, 0x00FF00/* + (pt1.z * 0xFF0000)*/);
 			++i;
 			pt1.x += xincr;
 			ex -= dy;
@@ -142,7 +79,7 @@ void	bresenham(t_img *img, t_point pt1, t_point pt2)
 	{
 		while (i <= dey)
 		{
-			image_pixel_put(img, pt1.x, pt1.y, 0x00FFFF);
+			image_pixel_put(img, pt1.x, pt1.y, 0x00FF00/* + (pt1.z * 0xFF0000)*/);
 			++i;
 			pt1.y += yincr;
 			ey -= dx;

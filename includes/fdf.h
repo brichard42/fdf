@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/22 14:43:05 by evogel           ###   ########.fr       */
+/*   Updated: 2019/02/22 19:17:34 by evogel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@
 **	treat_img.c.C
 */
 
-void	centerise(t_file *file);
-void	fdf_get_scale(t_file *file);
+void	do_maths(t_file *file, char *str);
 void	treat_img(t_file *file, t_mlx *env);
 void	bresenham(t_img *img, t_point pt1, t_point pt2);
+void	scale_view(t_file *file);
+void	center_view(t_file *file);
 
 /*
 **	image_pixel_put.c
@@ -53,6 +54,7 @@ int		fdf_parsing(char *av, t_file *file);
 */
 
 void	fdf_init(t_mlx *env, int width, int height);
+void	init_view(t_file *file);
 
 /*
 **	fdf_utils.c
