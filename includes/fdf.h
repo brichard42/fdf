@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/23 10:47:04 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/23 13:35:37 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@
 **	treat_img.c.C
 */
 
-void	do_maths(t_file *file, char *str);
+void	do_maths(t_point ***pts, t_math *math, char *str);
 void	treat_img(t_mlx *env);
 void	bresenham(t_img *img, t_point pt1, t_point pt2);
-void	scale_view(t_file *file);
-void	center_view(t_file *file);
+void	scale_view(t_point ***pts, t_math *math);
+void	center_view(t_point ***pts, t_math *math);
 
 /*
 **	image_pixel_put.c
@@ -47,21 +47,21 @@ int		image_pixel_put(t_img *img, int x, int y, int colour);
 **	fdf_parsing.c
 */
 
-int		fdf_parsing(char *av, t_file *file);
+int		fdf_parsing(char *av, t_point ****pts);
 
 /*
 **	fdf_init.c
 */
 
 void	fdf_init(t_mlx *env, int width, int height);
-void	init_view(t_file *file);
+void	init_view(t_point ***pts, t_math *math);
 
 /*
 **	fdf_utils.c
 */
 
 int		pexit(int exit_value);
-void	put_tpoint(t_point ***pts);
+void	put_tpoint(t_point ***pts);//to delete before push
 
 /*
 **	ft_*.c

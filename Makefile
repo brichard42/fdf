@@ -6,7 +6,7 @@
 #    By: brichard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by brichard          #+#    #+#              #
-#    Updated: 2019/02/23 02:11:52 by brichard         ###   ########.fr        #
+#    Updated: 2019/02/23 13:14:54 by brichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,7 +120,7 @@ linux: lib $(OBJS_PATH) $(INC) $(D_OBJS)
 	@$(call run_and_test, $(CC) $(CFLAGS) -o $(NAME) $(D_OBJS) -I ./$(LIB)/libmlx/include/ -L ./$(LIB)/libmlx/ -lmlx -L ./$(LIB)/libft -lft -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11 -lm)
 
 sanitize: lib $(OBJS_PATH) $(INC) $(D_OBJS)
-	@$(call run_and_test, $(CC) $(CFLAGS) $(SANITIZE) -o $(NAME) $(D_OBJS) -I $(MLX_PATH)/include/ -L $(MLX_PATH)/lib/ -lmlx -framework OpenGL -framework AppKit -L ./$(LIB)/libft -lft)
+	@$(call run_and_test, $(CC) $(CFLAGS) $(SANITIZE) -o $(NAME) $(D_OBJS) -I ./$(LIB)/libmlx/include/ -L ./$(LIB)/libmlx/ -lmlx -L ./$(LIB)/libft -lft -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11 -lm)
 
 $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 	@$(call run_and_test, $(CC) $(CFLAGS) -o $@ -c $< -I $(INC)  $(INC_FLAGS) -lm)

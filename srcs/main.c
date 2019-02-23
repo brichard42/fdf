@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/23 10:46:46 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/23 13:41:27 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,40 +56,40 @@ int			do_key(int keycode, void *param)
 	ft_bzero(env->img.data, W_HEIGHT * env->img.size_l);
 	if (keycode == KEY_LEFT)
 	{
-		env->file.x_move = -5;
-		do_maths(&env->file, "mx");
+		env->math.x_move = -5;
+		do_maths(env->pts, &env->math, "mx");
 	}
 	if (keycode == KEY_RIGHT)
 	{
-		env->file.x_move = 5;
-		do_maths(&env->file, "mx");
+		env->math.x_move = 5;
+		do_maths(env->pts, &env->math, "mx");
 	}
 	if (keycode == KEY_DOWN)
 	{
-		env->file.y_move = -5;
-		do_maths(&env->file, "my");
+		env->math.y_move = -5;
+		do_maths(env->pts, &env->math, "my");
 	}
 	if (keycode == KEY_UP)
 	{
-		env->file.y_move = 5;
-		do_maths(&env->file, "my");
+		env->math.y_move = 5;
+		do_maths(env->pts, &env->math, "my");
 	}
 	if (keycode == KEY_I)
-		do_maths(&env->file, "r");
+		do_maths(env->pts, &env->math, "r");
 	if (keycode == KEY_Z)
 	{
-		env->file.zoom = 1.01;
-		do_maths(&env->file, "z");
+		env->math.zoom = 1.01;
+		do_maths(env->pts, &env->math, "z");
 	}
 	if (keycode == KEY_E)
 	{
-		env->file.zoom = 0.9;
-		do_maths(&env->file, "z");
+		env->math.zoom = 0.9;
+		do_maths(env->pts, &env->math, "z");
 	}
 	if (keycode == KEY_P)
 	{
-		scale_view(&env->file);
-		center_view(&env->file);
+		scale_view(env->pts, &env->math);
+		center_view(env->pts, &env->math);
 	}
 	treat_img(env);//+++++SHOULD BE CALLED AFTER ANY KIND OF CHANGES, I.E SCALE..VUE..ETC.+++++//
 	return (0);
@@ -101,7 +101,6 @@ int			fdf_close(void *param)
 	(void)param;
 	exit(0);
 	return (0);
-
 }
 
 int			main(int ac, char **av)
@@ -110,10 +109,11 @@ int			main(int ac, char **av)
 
 	if (ac != 2)
 		return (0);
-	if ((fdf_parsing(av[1], &env.file)) == -1)
+	env.pts = NULL;
+	if ((fdf_parsing(av[1], &env.pts)) == -1)
 		pexit(E_FDF_PARSING);
 	fdf_init(&env, W_WIDTH, W_HEIGHT);
-	init_view(&env.file);
+	init_view(env.pts, &env.math);
 	mlx_hook(env.win_ptr, KeyPress, KeyPressMask, do_key, (void *)&env);
 	mlx_hook(env.win_ptr, KeyRelease, KeyReleaseMask, do_key_release, (void *)&env);
 	mlx_hook(env.win_ptr, DestroyNotify, KeyPressMask, fdf_close, (void *)&env);

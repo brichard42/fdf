@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:12:31 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/22 22:27:58 by evogel           ###   ########.fr       */
+/*   Updated: 2019/02/23 12:53:53 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ typedef struct	s_point
 	long		z;
 }				t_point;
 
-typedef struct	s_file
+typedef struct	s_math
 {
-	t_point		***pts;
-	int			x_len;
-	int			y_len;
 	t_dif		dif;
 	double		zoom;
 	int			depth;
@@ -42,7 +39,7 @@ typedef struct	s_file
 	int			y_move;
 	double		x_rot;
 	double		y_rot;
-}				t_file;
+}				t_math;
 
 typedef struct	s_img
 {
@@ -57,7 +54,8 @@ typedef struct	s_mlx
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		img;
-	t_file		file;
+	t_point		***pts;
+	t_math		math;
 }				t_mlx;
 
 #endif

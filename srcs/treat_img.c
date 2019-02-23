@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:37:02 by evogel            #+#    #+#             */
-/*   Updated: 2019/02/23 10:48:00 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/23 13:07:40 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ void	treat_img(t_mlx *env)
 	int j;
 
 	i = 0;
-	while (env->file.pts[i])
+	while (env->pts[i])
 	{
 		j = 0;
-		while (env->file.pts[i][j])
+		while (env->pts[i][j])
 		{
-			if (env->file.pts[i][j + 1])
-				bresenham(&env->img, *env->file.pts[i][j], *env->file.pts[i][j + 1]);
-			if (env->file.pts[i + 1])
-				bresenham(&env->img, *env->file.pts[i][j], *env->file.pts[i + 1][j]);
-			image_pixel_put(&env->img, env->file.pts[i][j]->x, env->file.pts[i][j]->y, 0xFFFFFF);
+			if (env->pts[i][j + 1])
+				bresenham(&env->img, *env->pts[i][j], *env->pts[i][j + 1]);
+			if (env->pts[i + 1])
+				bresenham(&env->img, *env->pts[i][j], *env->pts[i + 1][j]);
+			image_pixel_put(&env->img, env->pts[i][j]->x, env->pts[i][j]->y, 0xFFFFFF);
 			++j;
 		}
 		++i;
