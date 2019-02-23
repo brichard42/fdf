@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/23 13:35:37 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/23 18:05:30 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 **	treat_img.c.C
 */
 
-void	do_maths(t_point ***pts, t_math *math, char *str);
+void	do_maths(t_point ***pts, t_math *math);
 void	treat_img(t_mlx *env);
 void	bresenham(t_img *img, t_point pt1, t_point pt2);
 void	scale_view(t_point ***pts, t_math *math);
@@ -47,7 +47,7 @@ int		image_pixel_put(t_img *img, int x, int y, int colour);
 **	fdf_parsing.c
 */
 
-int		fdf_parsing(char *av, t_point ****pts);
+int		fdf_parsing(char *av, t_mlx *env);
 
 /*
 **	fdf_init.c
@@ -61,6 +61,7 @@ void	init_view(t_point ***pts, t_math *math);
 */
 
 int		pexit(int exit_value);
+void	ft_tpointcpy(t_point ***dst, t_point ***src);
 void	put_tpoint(t_point ***pts);//to delete before push
 
 /*

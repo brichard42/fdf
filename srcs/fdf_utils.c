@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:22:01 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/22 11:42:46 by evogel           ###   ########.fr       */
+/*   Updated: 2019/02/23 17:58:40 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,26 @@ void	put_tpoint(t_point ***pts)
 			j++;
 		}
 		ft_putchar('\n');
+		i++;
+	}
+}
+
+void	ft_tpointcpy(t_point ***dst, t_point ***src)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (src[i])
+	{
+		j = 0;
+		while (src[i][j])
+		{
+			dst[i][j]->x = src[i][j]->x;
+			dst[i][j]->y = src[i][j]->y;
+			dst[i][j]->z = src[i][j]->z;
+			j++;
+		}
 		i++;
 	}
 }

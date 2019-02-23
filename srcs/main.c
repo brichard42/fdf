@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/23 13:41:27 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/23 19:08:59 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,17 @@
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
+# define KEY_PLUS 65451
+# define KEY_MINUS 65453
 
 /*
 parsing - FICHIER = CARRER OU RECTANGLE SINON INVALIDE
-optimise bresenham - pas s en dehors de l'img
-
-
+optimise bresenham - pas s en dehors de l'img && n'affiche pas certaines droites avec angle chelou
+fix centering
+mieux capter les maths pour la rotation
+bouton swap vue
+pour parelle, pas de rotation et pouf
+color swap
 */
 
 int			do_key_release(int keycode, void *param)
@@ -53,45 +58,38 @@ int			do_key(int keycode, void *param)
 	t_mlx	*env;
 
 	env = (t_mlx *)param;
+	ft_tpointcpy(env->pts, env->ori);
 	ft_bzero(env->img.data, W_HEIGHT * env->img.size_l);
 	if (keycode == KEY_LEFT)
-	{
-		env->math.x_move = -5;
-		do_maths(env->pts, &env->math, "mx");
-	}
+		env->math.x_move -= 5;
 	if (keycode == KEY_RIGHT)
-	{
-		env->math.x_move = 5;
-		do_maths(env->pts, &env->math, "mx");
-	}
+		env->math.x_move += 5;
 	if (keycode == KEY_DOWN)
-	{
-		env->math.y_move = -5;
-		do_maths(env->pts, &env->math, "my");
-	}
+		env->math.y_move -= 5;
 	if (keycode == KEY_UP)
-	{
-		env->math.y_move = 5;
-		do_maths(env->pts, &env->math, "my");
-	}
-	if (keycode == KEY_I)
-		do_maths(env->pts, &env->math, "r");
+		env->math.y_move += 5;
 	if (keycode == KEY_Z)
-	{
-		env->math.zoom = 1.01;
-		do_maths(env->pts, &env->math, "z");
-	}
+		env->math.zoom += 1;
 	if (keycode == KEY_E)
-	{
-		env->math.zoom = 0.9;
-		do_maths(env->pts, &env->math, "z");
-	}
+			env->math.zoom -= 1;
 	if (keycode == KEY_P)
 	{
-		scale_view(env->pts, &env->math);
-		center_view(env->pts, &env->math);
+		env->math.bol_center = 1;
+		env->math.bol_scale = 1;
 	}
+	if (keycode == KEY_PLUS)
+		env->math.depth += 1;
+	if (keycode == KEY_MINUS)
+		env->math.depth -= 1;
+	if (keycode == KEY_I)
+	{
+		env->math.x_rot += 0.01;
+		env->math.y_rot -= 0.01;
+	}
+	do_maths(env->pts, &env->math);
 	treat_img(env);//+++++SHOULD BE CALLED AFTER ANY KIND OF CHANGES, I.E SCALE..VUE..ETC.+++++//
+	env->math.bol_center = 0;
+	env->math.bol_scale = 0;
 	return (0);
 }
 
@@ -110,7 +108,7 @@ int			main(int ac, char **av)
 	if (ac != 2)
 		return (0);
 	env.pts = NULL;
-	if ((fdf_parsing(av[1], &env.pts)) == -1)
+	if ((fdf_parsing(av[1], &env)) == -1)
 		pexit(E_FDF_PARSING);
 	fdf_init(&env, W_WIDTH, W_HEIGHT);
 	init_view(env.pts, &env.math);

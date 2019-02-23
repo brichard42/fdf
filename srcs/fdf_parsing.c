@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/23 13:37:23 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/23 17:45:05 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		get_x_num(char *line)
 	return (count);
 }
 
-static void		fill_pts(t_point **pts, int i, char **line)
+static void		fill_pts(t_point **pts, t_point **ori, int i, char **line)
 {
 	int j;
 	int neg;
@@ -52,21 +52,25 @@ static void		fill_pts(t_point **pts, int i, char **line)
 				++*line;
 			}
 			pts[j] = ft_t_pointnew(j, i, res);
+			ori[j] = ft_t_pointnew(j, i, res);
 			++j;
 		}
 		if (**line)
 			++*line;
 	}
 	pts[j] = NULL;
+	ori[j] = NULL;
 }
 
-static int		make_pts(t_list *begin, t_point ****pts, int y_len)
+static int		make_pts(t_list *begin, t_mlx *env, int y_len)
 {
 	int		i;
 	int		x_len;
 	char	*line;
 
-	if (!(*pts = (t_point ***)ft_memalloc(sizeof(t_point **) * (y_len + 1))))
+	if (!(env->pts = (t_point ***)ft_memalloc(sizeof(t_point **) * (y_len + 1))))
+		return (-1);
+	if (!(env->ori = (t_point ***)ft_memalloc(sizeof(t_point **) * (y_len + 1))))
 		return (-1);
 	line = (char *)begin->content;
 	x_len = get_x_num(line);
@@ -76,16 +80,22 @@ static int		make_pts(t_list *begin, t_point ****pts, int y_len)
 		line = begin->content;
 		if (get_x_num(line) != x_len)
 			return (-1); //+++++ USAGE INVALID FILE +++++//
-		if (!((*pts)[i] = (t_point **)ft_memalloc(sizeof(t_point*) * (x_len + 1))))
+		if (!(env->pts[i] = (t_point **)ft_memalloc(sizeof(t_point*) * (x_len + 1))))
 		{
 			//+++++++ TABDEL ICI SINON LEAKS ++++++++//
 			return (-1);
 		}
-		fill_pts((*pts)[i], i, &line);
+		if (!(env->ori[i] = (t_point **)ft_memalloc(sizeof(t_point*) * (x_len + 1))))
+		{
+			//+++++++ TABDEL ICI SINON LEAKS ++++++++//
+			return (-1);
+		}
+		fill_pts(env->pts[i], env->ori[i], i, &line);
 		begin = begin->next;
 		++i;
 	}
-	(*pts)[i] = NULL;
+	env->pts[i] = NULL;
+	env->ori[i] = NULL;
 	return (0);
 }
 
@@ -118,7 +128,7 @@ static int		put_in_lst(const int fd, t_list **begin)
 	return (num_line);
 }
 
-int				fdf_parsing(char *av, t_point ****pts)
+int				fdf_parsing(char *av, t_mlx *env)
 {
 	int		fd;
 	t_list	*begin;
@@ -134,7 +144,7 @@ int				fdf_parsing(char *av, t_point ****pts)
 			return (-1);
 		return (-1);
 	}
-	if ((make_pts(begin, pts, y_len)) < 0)
+	if ((make_pts(begin, env, y_len)) < 0)
 	{
 		ft_lstdel(&begin, ft_del_cont);
 		if (close(fd) == -1)
