@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/23 18:05:30 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/26 14:23:47 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <unistd.h>
 # include "fdf_structs.h"
 
-# define W_HEIGHT 1080
-# define W_WIDTH 1920
+# define W_HEIGHT 720
+# define W_WIDTH 1080
 
 /*
 **	treat_img.c.C
@@ -53,7 +53,7 @@ int		fdf_parsing(char *av, t_mlx *env);
 **	fdf_init.c
 */
 
-void	fdf_init(t_mlx *env, int width, int height);
+void	fdf_init(t_mlx *env);
 void	init_view(t_point ***pts, t_math *math);
 
 /*
@@ -68,7 +68,7 @@ void	put_tpoint(t_point ***pts);//to delete before push
 **	ft_*.c
 */
 
-t_point		*ft_t_pointnew(int x, int y, int z);
+t_point		*ft_t_pointnew(long x, long y, long z);
 int			ft_abs(int a);
 
 /*

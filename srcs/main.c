@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/23 19:08:59 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:37:41 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,7 @@
 
 /*
 parsing - FICHIER = CARRER OU RECTANGLE SINON INVALIDE
-optimise bresenham - pas s en dehors de l'img && n'affiche pas certaines droites avec angle chelou
-fix centering
 mieux capter les maths pour la rotation
-bouton swap vue
-pour parelle, pas de rotation et pouf
 color swap
 */
 
@@ -70,21 +66,25 @@ int			do_key(int keycode, void *param)
 		env->math.y_move += 5;
 	if (keycode == KEY_Z)
 		env->math.zoom += 1;
-	if (keycode == KEY_E)
-			env->math.zoom -= 1;
+	if (keycode == KEY_E && env->math.zoom > 1)
+		env->math.zoom -= 1;
 	if (keycode == KEY_P)
-	{
 		env->math.bol_center = 1;
-		env->math.bol_scale = 1;
-	}
 	if (keycode == KEY_PLUS)
 		env->math.depth += 1;
 	if (keycode == KEY_MINUS)
 		env->math.depth -= 1;
 	if (keycode == KEY_I)
 	{
-		env->math.x_rot += 0.01;
-		env->math.y_rot -= 0.01;
+		env->math.bol_rot = (env->math.bol_rot == 1 ? 0 : 1);
+		env->math.bol_center = 1;
+		env->math.x_rot = 0.523599;
+		env->math.y_rot = 0.523599;
+	}
+	if (keycode == KEY_R)
+	{
+		env->math.bol_center = 1;
+		env->math.bol_scale = 1;
 	}
 	do_maths(env->pts, &env->math);
 	treat_img(env);//+++++SHOULD BE CALLED AFTER ANY KIND OF CHANGES, I.E SCALE..VUE..ETC.+++++//
@@ -110,7 +110,7 @@ int			main(int ac, char **av)
 	env.pts = NULL;
 	if ((fdf_parsing(av[1], &env)) == -1)
 		pexit(E_FDF_PARSING);
-	fdf_init(&env, W_WIDTH, W_HEIGHT);
+	fdf_init(&env);
 	init_view(env.pts, &env.math);
 	mlx_hook(env.win_ptr, KeyPress, KeyPressMask, do_key, (void *)&env);
 	mlx_hook(env.win_ptr, KeyRelease, KeyReleaseMask, do_key_release, (void *)&env);

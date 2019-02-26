@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 16:42:17 by evogel            #+#    #+#             */
-/*   Updated: 2019/02/23 19:01:28 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:19:08 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,28 +45,64 @@ void		get_dx_dy(t_point ***pts, t_math *math)
 
 void		scale_view(t_point ***pts, t_math *math)
 {
+	static int prev = 0;
+	int	i;
+	int	j;
+
 	get_dx_dy(pts, math);
 	if ((W_WIDTH / math->dif.dx) < (W_HEIGHT / math->dif.dy))
-		math->zoom = (W_WIDTH / math->dif.dx);
+		math->zoom = ((W_WIDTH - 40) / math->dif.dx);
 	else
-		math->zoom = (W_HEIGHT / math->dif.dy);
+		math->zoom = ((W_HEIGHT - 40) / math->dif.dy);
+	if (math->zoom == prev)
+		return ;
+	i = 0;
+	while (pts[i])
+	{
+		j = 0;
+		while (pts[i][j])
+		{
+			pts[i][j]->x *= math->zoom;
+			pts[i][j]->y *= math->zoom;
+			j++;
+		}
+		i++;
+	}
+	prev = math->zoom;
 }
 
 void		center_view(t_point ***pts, t_math *math)
 {
+	int	i;
+	int	j;
+
 	get_dx_dy(pts, math);
 	math->x_move = (W_WIDTH - math->dif.dx) / 2 - math->dif.x_min;
 	math->y_move = (W_HEIGHT - math->dif.dy) / 2 - math->dif.y_min;
+	i = 0;
+	while (pts[i])
+	{
+		j = 0;
+		while (pts[i][j])
+		{
+			//move x
+			pts[i][j]->x += math->x_move;
+			//move y
+			pts[i][j]->y += math->y_move;
+			j++;
+		}
+		i++;
+	}
 }
 
 void		init_view(t_point ***pts, t_math *math)
 {
-	(void)pts;
+	(void)pts;//a degager
 	math->depth = 2;
-	math->x_rot = 0.523599;
-	math->y_rot = 0.523599;
+	math->zoom = 1;
+	math->bol_rot = 0;
 	math->bol_center = 1;
-	math->bol_scale = 1;
+	math->bol_scale = 5;
 }
 
 void		rotation(t_point *pt, double x_rot, double y_rot)
@@ -85,29 +121,34 @@ void		do_maths(t_point ***pts, t_math *math)
 	int i;
 	int j;
 
-	if (math->bol_scale == 1)
-		scale_view(pts, math);
-	if (math->bol_center == 1)
-		center_view(pts, math);
 	i = 0;
 	while (pts[i])
 	{
 		j = 0;
 		while (pts[i][j])
 		{
-			//zoom
-			pts[i][j]->x *= math->zoom;
-			pts[i][j]->y *= math->zoom;
+//			if (math->bol_scale == 0)//zoom
+//			{
+				pts[i][j]->x *= math->zoom;
+				pts[i][j]->y *= math->zoom;
+//			}
 			//depth
 			pts[i][j]->z *= math->depth;
 			//rotate
-			rotation(pts[i][j], math->x_rot, math->y_rot);
+			if (math->bol_rot == 1)
+				rotation(pts[i][j], math->x_rot, math->y_rot);
 			//move x
-			pts[i][j]->x += math->x_move;
+			if (math->bol_center == 0)
+				pts[i][j]->x += math->x_move;
 			//move y
-			pts[i][j]->y += math->y_move;
+			if (math->bol_center == 0)
+				pts[i][j]->y += math->y_move;
 			j++;
 		}
 		i++;
 	}
+	if (math->bol_scale == 1)
+		scale_view(pts, math);
+	if (math->bol_center == 1)
+		center_view(pts, math);
 }

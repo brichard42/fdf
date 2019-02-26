@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:22:01 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/23 17:58:40 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:31:22 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	put_tpoint(t_point ***pts)
 		j = 0;
 		while (pts[i][j])
 		{
-			ft_printf("[%5d %5d %5d] ", pts[i][j]->x, pts[i][j]->y, pts[i][j]->z);
+			ft_printf("[%5d] ", pts[i][j]->z);
 			j++;
 		}
 		ft_putchar('\n');

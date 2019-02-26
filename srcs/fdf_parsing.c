@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/23 17:45:05 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:29:35 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ static int		get_x_num(char *line)
 
 static void		fill_pts(t_point **pts, t_point **ori, int i, char **line)
 {
-	int j;
-	int neg;
-	int	res;
+	int		j;
+	int		neg;
+	long	res;
 
-	neg = 1;
 	j = 0;
 	while (**line)
 	{
 		if (**line != ' ')
 		{
+			neg = 1;
 			res = 0;
 			if (**line == '-' && ++*line)
 				neg = -1;

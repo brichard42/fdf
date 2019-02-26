@@ -6,13 +6,13 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 15:17:34 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/21 16:43:03 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/26 14:22:57 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point		*ft_t_pointnew(int x, int y, int z)
+t_point		*ft_t_pointnew(long x, long y, long z)
 {
 	t_point		*pts;
 
