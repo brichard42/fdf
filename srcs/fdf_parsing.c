@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/26 17:29:35 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:09:44 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,17 @@ static int		make_pts(t_list *begin, t_mlx *env, int y_len)
 	return (0);
 }
 
+static int		line_test(char *line)
+{
+	while (*line)
+	{
+		if (*line != ' ' && ft_isdigit(*line) == 0 && *line != '-')
+			return (0);
+		++line;
+	}
+	return (1);
+}
+
 static int		put_in_lst(const int fd, t_list **begin)
 {
 	char	*line;
@@ -110,6 +121,8 @@ static int		put_in_lst(const int fd, t_list **begin)
 	num_line = 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
+		if (!(line_test(line)))
+			return (-1);
 		if (!(new = ft_lstnew((void *)line, ft_strlen(line) + 1)))
 		{
 			ft_lstdel(begin, ft_del_cont);

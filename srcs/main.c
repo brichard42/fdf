@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/26 17:37:41 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:00:10 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int			main(int ac, char **av)
 		return (0);
 	env.pts = NULL;
 	if ((fdf_parsing(av[1], &env)) == -1)
-		pexit(E_FDF_PARSING);
+		exit(E_FDF_PARSING);
 	fdf_init(&env);
 	init_view(env.pts, &env.math);
 	mlx_hook(env.win_ptr, KeyPress, KeyPressMask, do_key, (void *)&env);
