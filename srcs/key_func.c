@@ -1,21 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image_pixel_put.c                                  :+:      :+:    :+:   */
+/*   key_func.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/12 18:15:58 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/28 16:42:11 by brichard         ###   ########.fr       */
+/*   Created: 2019/02/28 13:55:18 by brichard          #+#    #+#             */
+/*   Updated: 2019/02/28 14:38:11 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		image_pixel_put(t_img *img, int x, int y, int colour)
+void	move_left(t_math *math)
 {
-	if (((x * 4 + y  * img->size_l) > W_HEIGHT * img->size_l) || (x * 4 + y  * img->size_l) < 0 || x < 0 || y < 0 || y >= W_HEIGHT || x >= W_WIDTH)
-		return (0);
-	img->data[x + y * img->size_l / 4 ] = colour;
-	return (0);
+	math->x_move -= 7;
+}
+
+void	move_right(t_math *math)
+{
+	math->x_move += 7;
+}
+
+void	move_down(t_math *math)
+{
+	math->y_move += 7;
+}
+
+void	move_up(t_math *math)
+{
+	math->y_move -= 7;
+}
+
+void	move_center(t_math *math)
+{
+	math->bol_center = 1;
 }

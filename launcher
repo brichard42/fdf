@@ -1,17 +1,16 @@
 #!/bin/bash
 
-P_FDF='/Users/evogel/42Projects/fdf_team/'
-#P_FDF='/Users/brichard/Projects/FilDeFer/fdf/'
+#P_FDF='/Users/evogel/42Projects/fdf_team/'
+P_FDF='/Users/brichard/Projects/FilDeFer/fdf/'
 
 algood()
 {
-	echo "All Good!"
-	echo .
-	sleep 0.5
-	echo .
-	sleep 0.5
-	echo .
+	echo -n All Good!
+	echo -n .
 	sleep 1
+	echo -n .
+	sleep 1
+	echo .
 }
 
 

@@ -6,7 +6,7 @@
 #    By: brichard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by brichard          #+#    #+#              #
-#    Updated: 2019/02/23 13:14:54 by brichard         ###   ########.fr        #
+#    Updated: 2019/02/28 14:34:11 by brichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,10 @@ SRCS =	main.c \
 		image_pixel_put.c \
 		ft_t_pointnew.c \
 		treat_img.c \
-		maths.c
+		maths.c \
+		key_func.c \
+		key_func_2.c \
+		key_func_3.c \
 
 ################################################################################
 #                                    COlORS                                    #
@@ -123,7 +126,7 @@ sanitize: lib $(OBJS_PATH) $(INC) $(D_OBJS)
 	@$(call run_and_test, $(CC) $(CFLAGS) $(SANITIZE) -o $(NAME) $(D_OBJS) -I ./$(LIB)/libmlx/include/ -L ./$(LIB)/libmlx/ -lmlx -L ./$(LIB)/libft -lft -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11 -lm)
 
 $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
-	@$(call run_and_test, $(CC) $(CFLAGS) -o $@ -c $< -I $(INC)  $(INC_FLAGS) -lm)
+	@$(call run_and_test, $(CC) $(CFLAGS) -o $@ -c $< -I $(INC)  $(INC_FLAGS))
 
 $(OBJS_PATH) :
 	@$(call run_and_test, mkdir -p $@)

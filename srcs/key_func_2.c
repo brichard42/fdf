@@ -1,21 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image_pixel_put.c                                  :+:      :+:    :+:   */
+/*   key_func_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/12 18:15:58 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/28 16:42:11 by brichard         ###   ########.fr       */
+/*   Created: 2019/02/28 14:06:48 by brichard          #+#    #+#             */
+/*   Updated: 2019/02/28 15:01:43 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		image_pixel_put(t_img *img, int x, int y, int colour)
+void	zoom_in(t_math *math)
 {
-	if (((x * 4 + y  * img->size_l) > W_HEIGHT * img->size_l) || (x * 4 + y  * img->size_l) < 0 || x < 0 || y < 0 || y >= W_HEIGHT || x >= W_WIDTH)
-		return (0);
-	img->data[x + y * img->size_l / 4 ] = colour;
-	return (0);
+	math->zoom += 0.1;
+}
+
+void	zoom_out(t_math *math)
+{
+	if (math->zoom > 1)
+		math->zoom -= 0.1;
+}
+
+void	depth_inc(t_math *math)
+{
+	math->depth += 0.1;
+}
+
+void	depth_dec(t_math *math)
+{
+	math->depth -= 0.1;
+}
+
+void	center_scale(t_math *math)
+{
+	math->bol_center = 1;
+	math->bol_scale = 1;
 }

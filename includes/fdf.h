@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/26 14:23:47 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:17:54 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 # include <unistd.h>
 # include "fdf_structs.h"
 
-# define W_HEIGHT 720
-# define W_WIDTH 1080
+# define W_HEIGHT 1080
+# define W_WIDTH 1920
+
+typedef	void	(*t_keyfunc)(t_math *);
 
 /*
 **	treat_img.c.C
@@ -63,6 +65,7 @@ void	init_view(t_point ***pts, t_math *math);
 int		pexit(int exit_value);
 void	ft_tpointcpy(t_point ***dst, t_point ***src);
 void	put_tpoint(t_point ***pts);//to delete before push
+void	ft_free_tab(void **cont, int size);
 
 /*
 **	ft_*.c
@@ -70,6 +73,32 @@ void	put_tpoint(t_point ***pts);//to delete before push
 
 t_point		*ft_t_pointnew(long x, long y, long z);
 int			ft_abs(int a);
+
+/*
+**	key_fun.c
+*/
+
+void	move_left(t_math *math);
+void	move_right(t_math *math);
+void	move_down(t_math *math);
+void	move_up(t_math *math);
+void	move_center(t_math *math);
+
+/*
+**	key_fun_2.c
+*/
+
+void	zoom_in(t_math *math);
+void	zoom_out(t_math *math);
+void	depth_inc(t_math *math);
+void	depth_dec(t_math *math);
+void	center_scale(t_math *math);
+
+/*
+**	key_fun_3.c
+*/
+
+void	switch_iso(t_math *math);
 
 /*
 **	EVENT DEFINITIONS

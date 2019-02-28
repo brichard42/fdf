@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:37:02 by evogel            #+#    #+#             */
-/*   Updated: 2019/02/26 17:33:10 by brichard         ###   ########.fr       */
+/*   Updated: 2019/02/28 16:47:54 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,9 @@ void	treat_img(t_mlx *env)
 		while (env->pts[i][j])
 		{
 			if (env->pts[i][j + 1])
-			{
-				//ft_printf("TREAT_IMG | pts[%d][%d].x = {%d} pts[%d][%d] = {%d}\n", i, j, env->pts[i][j]->x, i, j + 1, env->pts[i][j + 1]->x);
 				bresenham(&env->img, *env->pts[i][j], *env->pts[i][j + 1]);
-			}
 			if (env->pts[i + 1])
 				bresenham(&env->img, *env->pts[i][j], *env->pts[i + 1][j]);
-			image_pixel_put(&env->img, env->pts[i][j]->x, env->pts[i][j]->y, 0xFF0000);
 			++j;
 		}
 		++i;
@@ -67,8 +63,6 @@ void	bresenham(t_img *img, t_point pt1, t_point pt2)
 	{
 		while (i <= dex)
 		{
-			//ft_printf("saucisse? pt1.x = %d && pt2.x = %d\n", pt1.x, pt2.x);
-			//ft_printf("saucisse? pt1.y = %d && pt2.y = %d\n", pt1.y, pt2.y);
 			image_pixel_put(img, pt1.x, pt1.y, 0x0000FF + (pt1.z * 0xFF0000));
 			++i;
 			pt1.x += xincr;
