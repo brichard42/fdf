@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 14:06:48 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/28 15:01:43 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/01 13:52:24 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,22 @@
 
 void	zoom_in(t_math *math)
 {
-	math->zoom += 0.1;
+	math->zoom += 0.2;
 }
 
 void	zoom_out(t_math *math)
 {
-	if (math->zoom > 1)
-		math->zoom -= 0.1;
+	math->zoom -= 0.2;
 }
 
 void	depth_inc(t_math *math)
 {
-	math->depth += 0.1;
+	math->depth += 0.08;
 }
 
 void	depth_dec(t_math *math)
 {
-	math->depth -= 0.1;
+	math->depth -= 0.08;
 }
 
 void	center_scale(t_math *math)

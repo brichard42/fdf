@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_func.c                                         :+:      :+:    :+:   */
+/*   fdf_colors.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/28 13:55:18 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/01 14:01:43 by brichard         ###   ########.fr       */
+/*   Created: 2019/03/01 12:27:20 by brichard          #+#    #+#             */
+/*   Updated: 2019/03/01 13:18:35 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#ifndef FDF_COLORS_H
+# define FDF_COLORS_H
 
-void	move_left(t_math *math)
-{
-	math->x_move -= 7 * math->zoom + 1;
-}
+# define WHITE 0xFFFFFF
+# define RED 0xFF0000
+# define YELLOW 0xFFFF00
+# define GREEN 0x00FF00
+# define BLUE 0x0000FF
 
-void	move_right(t_math *math)
-{
-	math->x_move += 7 * math->zoom + 1;
-}
-
-void	move_down(t_math *math)
-{
-	math->y_move += 7 * math->zoom + 1;
-}
-
-void	move_up(t_math *math)
-{
-	math->y_move -= 7 * math->zoom + 1;
-}
-
-void	move_center(t_math *math)
-{
-	math->bol_center = 1;
-}
+#endif

@@ -6,28 +6,33 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:12:31 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/28 16:30:25 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/01 15:02:55 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_STRUCTS_H
 # define FDF_STRUCTS_H
 
+# define KEY_TAB 130
+
 typedef struct	s_dif
 {
-	long			dx;
-	long			dy;
-	long			x_max;
-	long			y_max;
-	long			x_min;
-	long			y_min;
+	double			dx;
+	double			dy;
+	double			dz;
+	double			x_max;
+	double			x_min;
+	double			y_max;
+	double			y_min;
+	double			z_max;
+	double			z_min;
 }				t_dif;
 
 typedef struct	s_point
 {
-	long		x;
-	long		y;
-	long		z;
+	double		x;
+	double		y;
+	double		z;
 }				t_point;
 
 typedef struct	s_math
@@ -35,8 +40,8 @@ typedef struct	s_math
 	t_dif		dif;
 	double		zoom;
 	double		depth;
-	int			x_move;
-	int			y_move;
+	double		x_move;
+	double		y_move;
 	double		x_rot;
 	double		y_rot;
 	int			bol_center;
@@ -62,7 +67,7 @@ typedef struct	s_mlx
 	t_point		***pts;
 	t_point		***ori;
 	t_math		math;
-	t_keyfunc	key_tab[130];
+	t_keyfunc	key_tab[KEY_TAB];
 }				t_mlx;
 
 #endif

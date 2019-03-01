@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/28 17:17:54 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/01 14:21:03 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "mlx.h"
 # include "fdf_errors.h"
+# include "fdf_colors.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <errno.h>
@@ -26,6 +27,19 @@
 
 # define W_HEIGHT 1080
 # define W_WIDTH 1920
+# define KEY_A 0//97
+# define KEY_Z 6//122
+# define KEY_E 14//101
+# define KEY_R 15//114
+# define KEY_I 34//105
+# define KEY_P 35//112
+# define KEY_UP 126//65364
+# define KEY_DOWN 125//65362
+# define KEY_LEFT 123//65361
+# define KEY_RIGHT 124//65363
+# define KEY_ESC 53//65307
+# define KEY_PLUS 69//65451
+# define KEY_MINUS 78//65453
 
 typedef	void	(*t_keyfunc)(t_math *);
 
@@ -35,7 +49,7 @@ typedef	void	(*t_keyfunc)(t_math *);
 
 void	do_maths(t_point ***pts, t_math *math);
 void	treat_img(t_mlx *env);
-void	bresenham(t_img *img, t_point pt1, t_point pt2);
+void	bresenham(t_mlx *env, t_point pt1, t_point pt2);
 void	scale_view(t_point ***pts, t_math *math);
 void	center_view(t_point ***pts, t_math *math);
 
@@ -56,7 +70,7 @@ int		fdf_parsing(char *av, t_mlx *env);
 */
 
 void	fdf_init(t_mlx *env);
-void	init_view(t_point ***pts, t_math *math);
+void	init_view(t_math *math);
 
 /*
 **	fdf_utils.c
@@ -64,7 +78,6 @@ void	init_view(t_point ***pts, t_math *math);
 
 int		pexit(int exit_value);
 void	ft_tpointcpy(t_point ***dst, t_point ***src);
-void	put_tpoint(t_point ***pts);//to delete before push
 void	ft_free_tab(void **cont, int size);
 
 /*
@@ -99,6 +112,12 @@ void	center_scale(t_math *math);
 */
 
 void	switch_iso(t_math *math);
+
+/*
+**	fdf_colors.c
+*/
+
+int		pick_color(t_math math, double z);
 
 /*
 **	EVENT DEFINITIONS
