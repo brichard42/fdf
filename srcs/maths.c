@@ -6,7 +6,7 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 16:42:17 by evogel            #+#    #+#             */
-/*   Updated: 2019/03/01 15:08:06 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/01 15:49:17 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void		get_dx_dy(t_point ***pts, t_math *math)
 	math->dif.x_min = pts[0][0]->x;
 	math->dif.y_max = pts[0][0]->y;
 	math->dif.y_min = pts[0][0]->y;
-	math->dif.z_max = pts[0][0]->z;
-	math->dif.z_min = pts[0][0]->z;
 	i = 0;
 	while (pts[i])
 	{
@@ -37,17 +35,12 @@ void		get_dx_dy(t_point ***pts, t_math *math)
 				math->dif.y_max = pts[i][j]->y;
 			else if (pts[i][j]->y < math->dif.y_min)
 				math->dif.y_min = pts[i][j]->y;
-			if (pts[i][j]->z > math->dif.z_max)
-				math->dif.z_max = pts[i][j]->z;
-			else if (pts[i][j]->z < math->dif.z_min)
-				math->dif.z_min = pts[i][j]->z;
 			j++;
 		}
 		i++;
 	}
 	math->dif.dx = ((math->dif.x_max - math->dif.x_min) == 0 ? 1 : (math->dif.x_max - math->dif.x_min));
 	math->dif.dy = ((math->dif.y_max - math->dif.y_min) == 0 ? 1 : (math->dif.y_max - math->dif.y_min));
-	math->dif.dz = ft_abs(math->dif.z_max - (math->dif.z_min < 0 ? 0 : math->dif.z_min));
 }
 
 void		scale_view(t_point ***pts, t_math *math)

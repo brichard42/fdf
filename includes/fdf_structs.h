@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:12:31 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/01 15:02:55 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:17:31 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,10 @@ typedef struct	s_dif
 {
 	double			dx;
 	double			dy;
-	double			dz;
 	double			x_max;
 	double			x_min;
 	double			y_max;
 	double			y_min;
-	double			z_max;
-	double			z_min;
 }				t_dif;
 
 typedef struct	s_point
@@ -53,8 +50,6 @@ typedef struct	s_img
 {
 	void		*img_ptr;
 	int			*data;
-	int			data_size;
-	int			size_l;
 }				t_img;
 
 typedef	void	(*t_keyfunc)(t_math *);

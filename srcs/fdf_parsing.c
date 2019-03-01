@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/02/28 17:49:10 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:14:13 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int				fdf_parsing(char *av, t_mlx *env)
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
 		return (-1);
-	if ((y_len = put_in_lst(fd, &begin)) == -1)
+	if ((y_len = put_in_lst(fd, &begin)) <= 0)
 	{
 		ft_lstdel(&begin, ft_del_cont);
 		if (close(fd) == -1)

@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/01 14:21:03 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/01 15:51:23 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef	void	(*t_keyfunc)(t_math *);
 
 void	do_maths(t_point ***pts, t_math *math);
 void	treat_img(t_mlx *env);
-void	bresenham(t_mlx *env, t_point pt1, t_point pt2);
+void	bresenham(t_img *img, t_point pt1, t_point pt2);
 void	scale_view(t_point ***pts, t_math *math);
 void	center_view(t_point ***pts, t_math *math);
 
@@ -117,7 +117,7 @@ void	switch_iso(t_math *math);
 **	fdf_colors.c
 */
 
-int		pick_color(t_math math, double z);
+int		pick_color(double z);
 
 /*
 **	EVENT DEFINITIONS

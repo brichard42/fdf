@@ -6,18 +6,16 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/01 12:25:43 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:21:37 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 /*
-color swap
 recheck leaks
 validity check
 legende
-tej printf de la lib
 normer gnl
 checker lib et la reduire au max
 NORME
@@ -57,7 +55,7 @@ static int	do_key_press(int keycode, void *param)
 	env = (t_mlx *)param;
 	ft_tpointcpy(env->pts, env->ori);
 	mlx_clear_window(env->mlx_ptr, env->win_ptr);
-	ft_bzero(env->img.data, W_HEIGHT * env->img.size_l);
+	ft_bzero(env->img.data, W_HEIGHT * W_WIDTH * 4);
 	if (keycode >= 0 && keycode <= KEY_TAB && env->key_tab[keycode])
 		env->key_tab[keycode](&env->math);
 	do_maths(env->pts, &env->math);

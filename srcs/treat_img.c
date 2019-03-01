@@ -6,13 +6,20 @@
 /*   By: evogel <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:37:02 by evogel            #+#    #+#             */
-/*   Updated: 2019/03/01 14:20:08 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/01 17:54:22 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	treat_img(t_mlx *env)
+static int	in_window(t_point pt)
+{
+	if ((pt.x < 0 || pt.x > W_WIDTH) && (pt.y < 0 || pt.y > W_HEIGHT))
+		return (0);
+	return (1);
+}
+
+void		treat_img(t_mlx *env)
 {
 	int i;
 	int j;
@@ -23,10 +30,10 @@ void	treat_img(t_mlx *env)
 		j = 0;
 		while (env->pts[i][j])
 		{
-			if (env->pts[i][j + 1])
-				bresenham(env, *env->pts[i][j], *env->pts[i][j + 1]);
-			if (env->pts[i + 1])
-				bresenham(env, *env->pts[i][j], *env->pts[i + 1][j]);
+			if (env->pts[i][j + 1] && in_window(*env->pts[i][j]) && in_window(*env->pts[i][j + 1]))
+				bresenham(&env->img, *env->pts[i][j], *env->pts[i][j + 1]);
+			if (env->pts[i + 1] && in_window(*env->pts[i][j]) && in_window(*env->pts[i + 1][j]))
+				bresenham(&env->img, *env->pts[i][j], *env->pts[i + 1][j]);
 			++j;
 		}
 		++i;
@@ -34,7 +41,7 @@ void	treat_img(t_mlx *env)
 	mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img.img_ptr, 0, 0);
 }
 
-void	bresenham(t_mlx *env, t_point pt1, t_point pt2)
+void		bresenham(t_img *img, t_point pt1, t_point pt2)
 {
 	double	ex;
 	double	ey;
@@ -45,9 +52,9 @@ void	bresenham(t_mlx *env, t_point pt1, t_point pt2)
 	double	xincr;
 	double	yincr;
 	double	i;
-	t_img	*img;
+	t_point	tmp;
 
-	img = (t_img*)&env->img;
+	tmp = pt1;
 	ex = ft_abs(pt2.x - pt1.x);
 	ey = ft_abs(pt2.y - pt1.y);
 	dx = 2 * ex;
@@ -65,7 +72,7 @@ void	bresenham(t_mlx *env, t_point pt1, t_point pt2)
 	{
 		while (i <= dex)
 		{
-			image_pixel_put(img, pt1.x, pt1.y, pick_color(env->math, pt1.z));
+			image_pixel_put(img, pt1.x, pt1.y, pick_color(pt1.z));
 			++i;
 			pt1.x += xincr;
 			ex -= dy;
@@ -80,7 +87,7 @@ void	bresenham(t_mlx *env, t_point pt1, t_point pt2)
 	{
 		while (i <= dey)
 		{
-			image_pixel_put(img, pt1.x, pt1.y, pick_color(env->math, pt1.z));
+			image_pixel_put(img, pt1.x, pt1.y, pick_color(pt1.z));
 			++i;
 			pt1.y += yincr;
 			ey -= dx;
