@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 18:42:22 by brichard          #+#    #+#             */
-/*   Updated: 2018/12/07 14:55:16 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/01 18:51:18 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define BUFF_SIZE 4095
+# define BUFF_SIZE 8197
 # define CURR_CONT (char *)current->content
 # define P_CURR_CONT (char *)(*current)->content
 # define P_CURR_FD (int)(*current)->content_size

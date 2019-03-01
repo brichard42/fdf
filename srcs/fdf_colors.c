@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 13:20:05 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/01 15:54:14 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/01 18:40:19 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 
 int		pick_color(double z)
 {
-	if (z <= 0.0)
-		return (BLUE);
+	if (z <= 0.0 && z > -10.0)
+		return (0x3366FF);
+	else if (z < -10.0 && z >= -20.0)
+		return (0x0000FF);
+	else if (z < -20.0 && z >= -30.0)
+		return (0x0000CC);
+	else if (z < -30.0 && z >= -40.0)
+		return (0x000099);
+	else if (z < -40.0)
+		return (0x000066);
 	else if (z > 0.0 && z <= 15.0)
 		return (GREEN);
 	else if (z >= 15.0 && z <= 60.0)
