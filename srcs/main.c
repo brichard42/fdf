@@ -6,29 +6,33 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/03 11:37:45 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/03 17:21:31 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 /*
+NORME
 recheck leaks
 validity check
-legende
-normer gnl
 checker lib et la reduire au max
-NORME
+normer gnl
 */
 
 static int	fdf_close(void *param)
 {
 	t_mlx	*env;
+	int		i;
 
 	env = (t_mlx *)param;
+	i = 0;
+	while (env->pts[i])
+		++i;
 	mlx_destroy_image(env->mlx_ptr, env->img.img_ptr);
 	mlx_destroy_window(env->mlx_ptr, env->win_ptr);
-	//++++++ FREE LES TRUCS PLEASE ++++++//
+	ft_free_tab(env->pts, i);
+	ft_free_tab(env->ori, i);
 	exit(0);
 	return (0);
 }
@@ -36,14 +40,19 @@ static int	fdf_close(void *param)
 static int	do_key_release(int keycode, void *param)
 {
 	t_mlx	*env;
+	int		i;
 
 	env = (t_mlx *)param;
 	if (keycode == KEY_ESC)
 	{
+		i = 0;
+		while (env->pts[i])
+			++i;
 		mlx_destroy_image(env->mlx_ptr, env->img.img_ptr);
 		mlx_destroy_window(env->mlx_ptr, env->win_ptr);
-		//++++++ FREE LES TRUCS PLEASE ++++++//
-		exit (0);
+		ft_free_tab(env->pts, i);
+		ft_free_tab(env->ori, i);
+		exit(0);
 	}
 	return (0);
 }
@@ -90,7 +99,7 @@ int			main(int ac, char **av)
 		return (0);
 	env.pts = NULL;
 	if ((fdf_parsing(av[1], &env)) == -1)
-		exit(E_FDF_PARSING);
+		exit(1);
 	fdf_init(&env);
 	init_tab(env.key_tab, KEY_TAB);
 	init_view(&env.math);

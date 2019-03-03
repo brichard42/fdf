@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/01 16:14:13 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/03 18:02:02 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,10 @@ static int		fill_pts(t_point **pts, t_point **ori, int i, char **line)
 				res = res * 10 + (**line - '0') * neg;
 				++*line;
 			}
-			if (!(pts[j] = ft_t_pointnew(j, i, res)))
-			{
-				ft_free_tab((void **)&pts, j);
+			if (!(pts[j] = ft_t_pointnew(j, i, res))) // FREE
 				return (0);
-			}
 			if (!(ori[j] = ft_t_pointnew(j, i, res)))
-			{
-				ft_free_tab((void **)&pts, j);
-				ft_free_tab((void **)&ori, j);
 				return (0);
-			}
 			++j;
 		}
 		if (**line)
@@ -92,34 +85,19 @@ static int		make_pts(t_list *begin, t_mlx *env, int y_len)
 	{
 		line = begin->content;
 		if (get_x_num(line) != x_len)
-		{
-			ft_free_tab((void **)&env->pts, i);//+++++++ TABDEL ICI SINON LEAKS ++++++++//
-			ft_free_tab((void **)&env->ori, i);//+++++++ TABDEL ICI SINON LEAKS ++++++++//
-			return (-1); //+++++ USAGE INVALID FILE +++++//
-		}
+			return (i); //+++++ USAGE INVALID FILE +++++//
 		if (!(env->pts[i] = (t_point **)ft_memalloc(sizeof(t_point*) * (x_len + 1))))
-		{
-			ft_free_tab((void **)&env->pts, i);//+++++++ TABDEL ICI SINON LEAKS ++++++++//
-			return (-1);
-		}
+			return (i);
 		if (!(env->ori[i] = (t_point **)ft_memalloc(sizeof(t_point*) * (x_len + 1))))
-		{
-			ft_free_tab((void **)&env->pts, i);//+++++++ TABDEL ICI SINON LEAKS ++++++++//
-			ft_free_tab((void **)&env->ori, i);//+++++++ TABDEL ICI SINON LEAKS ++++++++//
-			return (-1);
-		}
+			return (i);
 		if (!(fill_pts(env->pts[i], env->ori[i], i, &line)))
-		{
-			ft_free_tab((void **)&env->pts, i);//+++++++ TABDEL ICI SINON LEAKS ++++++++//
-			ft_free_tab((void **)&env->ori, i);//+++++++ TABDEL ICI SINON LEAKS ++++++++//
-			return (-1);
-		}
+			return (i);
 		begin = begin->next;
 		++i;
 	}
 	env->pts[i] = NULL;
 	env->ori[i] = NULL;
-	return (0);
+	return (-2);
 }
 
 static int		line_test(char *line)

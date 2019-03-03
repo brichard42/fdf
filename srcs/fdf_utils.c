@@ -6,27 +6,19 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:22:01 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/03 10:43:31 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/03 17:20:33 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_free_tab(void **cont, int size)
+void	ft_free_tab(t_point ***tab, int size)
 {
-	char	**tab;
-
-	tab = (char **)*cont;
+	if (tab == NULL)
+		return ;
 	while (--size >= 0)
-		ft_memdel((void *)&tab[size]);
-	free(tab);
-	tab = NULL;
-}
-
-int		pexit(int exit_value)
-{
-	perror(strerror(errno));
-	exit(exit_value);
+		ft_memdel((void **)&(tab[size]));
+	ft_memdel((void **)tab);
 }
 
 int		ft_abs(int a)
