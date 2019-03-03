@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/01 16:21:37 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/03 11:37:45 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ int			main(int ac, char **av)
 	fdf_init(&env);
 	init_tab(env.key_tab, KEY_TAB);
 	init_view(&env.math);
-	mlx_hook(env.win_ptr, KeyPress, KeyPressMask, do_key_press, (void *)&env);
-	mlx_hook(env.win_ptr, KeyRelease, KeyReleaseMask, do_key_release, (void *)&env);
-	mlx_hook(env.win_ptr, DestroyNotify, KeyPressMask, fdf_close, (void *)&env);
+	mlx_hook(env.win_ptr, KEYPRESS, KEYPRESSMASK, do_key_press, (void *)&env);
+	mlx_hook(env.win_ptr, KEYRELEASE, KEYRELEASEMASK, do_key_release, (void *)&env);
+	mlx_hook(env.win_ptr, DESTROYNOTIFY, KEYPRESSMASK, fdf_close, (void *)&env);
 	mlx_loop(env.mlx_ptr);
 	return (0);
 }

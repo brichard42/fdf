@@ -6,23 +6,29 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:12:31 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/01 16:17:31 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/03 11:41:40 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_STRUCTS_H
 # define FDF_STRUCTS_H
 
-# define KEY_TAB 130
+# define KEY_TAB /*130*/65453
+
+typedef struct	s_vect
+{
+	double		x;
+	double		y;
+}				t_vect;
 
 typedef struct	s_dif
 {
-	double			dx;
-	double			dy;
-	double			x_max;
-	double			x_min;
-	double			y_max;
-	double			y_min;
+	double		dx;
+	double		dy;
+	double		x_max;
+	double		x_min;
+	double		y_max;
+	double		y_min;
 }				t_dif;
 
 typedef struct	s_point
