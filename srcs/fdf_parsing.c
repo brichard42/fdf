@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 15:28:12 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/03 18:02:02 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/03 19:22:51 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ static int		get_x_num(char *line)
 	return (count);
 }
 
-static int		fill_pts(t_point **pts, t_point **ori, int i, char **line)
+static void		fill_pts(t_point **pts, t_point **ori, int i, char **line)
 {
-	int		j;
-	int		neg;
-	long	res;
+	int	j;
+	int	neg;
+	int	res;
 
 	j = 0;
 	while (**line)
@@ -46,15 +46,11 @@ static int		fill_pts(t_point **pts, t_point **ori, int i, char **line)
 			res = 0;
 			if (**line == '-' && ++*line)
 				neg = -1;
-			while (ft_isdigit(**line))
-			{
-				res = res * 10 + (**line - '0') * neg;
+			while (ft_isdigit(**line) && (res = res * 10 + (**line - 48) * neg))
 				++*line;
-			}
-			if (!(pts[j] = ft_t_pointnew(j, i, res))) // FREE
-				return (0);
-			if (!(ori[j] = ft_t_pointnew(j, i, res)))
-				return (0);
+			if (!(pts[j] = ft_t_pointnew(j, i, res)) \
+				|| !(ori[j] = ft_t_pointnew(j, i, res)))
+				malo_exit();
 			++j;
 		}
 		if (**line)
@@ -62,53 +58,35 @@ static int		fill_pts(t_point **pts, t_point **ori, int i, char **line)
 	}
 	pts[j] = NULL;
 	ori[j] = NULL;
-	return (1);
 }
 
-static int		make_pts(t_list *begin, t_mlx *env, int y_len)
+static void		make_pts(t_list *begin, t_mlx *env, int y_len)
 {
 	int		i;
 	int		x_len;
 	char	*line;
 
-	if (!(env->pts = (t_point ***)ft_memalloc(sizeof(t_point **) * (y_len + 1))))
-		return (-1);
-	if (!(env->ori = (t_point ***)ft_memalloc(sizeof(t_point **) * (y_len + 1))))
-	{
-		free(env->pts);
-		return (-1);
-	}
-	line = (char *)begin->content;
+	if (!(env->pts = (t_point***)ft_memalloc(sizeof(t_point **) * (y_len + 1))))
+		malo_exit();
+	if (!(env->ori = (t_point***)ft_memalloc(sizeof(t_point **) * (y_len + 1))))
+		malo_exit();
+	line = (char*)begin->content;
 	x_len = get_x_num(line);
 	i = 0;
-	while (begin && begin->content)
+	while (begin && (line = (char*)begin->content))
 	{
-		line = begin->content;
 		if (get_x_num(line) != x_len)
-			return (i); //+++++ USAGE INVALID FILE +++++//
-		if (!(env->pts[i] = (t_point **)ft_memalloc(sizeof(t_point*) * (x_len + 1))))
-			return (i);
-		if (!(env->ori[i] = (t_point **)ft_memalloc(sizeof(t_point*) * (x_len + 1))))
-			return (i);
-		if (!(fill_pts(env->pts[i], env->ori[i], i, &line)))
-			return (i);
+			file_exit();
+		env->pts[i] = (t_point **)ft_memalloc(sizeof(t_point*) * (x_len + 1));
+		env->ori[i] = (t_point **)ft_memalloc(sizeof(t_point*) * (x_len + 1));
+		if (!(env->pts[i]) || !(env->ori[i]))
+			malo_exit();
+		fill_pts(env->pts[i], env->ori[i], i, &line);
 		begin = begin->next;
 		++i;
 	}
 	env->pts[i] = NULL;
 	env->ori[i] = NULL;
-	return (-2);
-}
-
-static int		line_test(char *line)
-{
-	while (*line)
-	{
-		if (*line != ' ' && ft_isdigit(*line) == 0 && *line != '-')
-			return (0);
-		++line;
-	}
-	return (1);
 }
 
 static int		put_in_lst(const int fd, t_list **begin)
@@ -128,10 +106,7 @@ static int		put_in_lst(const int fd, t_list **begin)
 			return (-1);
 		}
 		if (!(new = ft_lstnew((void *)line, ft_strlen(line) + 1)))
-		{
-			ft_memdel((void **)&line);
-			return (-1);
-		}
+			malo_exit();
 		ft_lstapp(begin, new);
 		++num_line;
 		ft_memdel((void **)&line);
@@ -152,19 +127,8 @@ int				fdf_parsing(char *av, t_mlx *env)
 	if (fd == -1)
 		return (-1);
 	if ((y_len = put_in_lst(fd, &begin)) <= 0)
-	{
-		ft_lstdel(&begin, ft_del_cont);
-		if (close(fd) == -1)
-			return (-1);
-		return (-1);
-	}
-	if ((make_pts(begin, env, y_len)) < 0)
-	{
-		ft_lstdel(&begin, ft_del_cont);
-		if (close(fd) == -1)
-			return (-1);
-		return (-1);
-	}
+		file_exit();
+	make_pts(begin, env, y_len);
 	if (close(fd) == -1)
 	{
 		ft_lstdel(&begin, ft_del_cont);

@@ -6,19 +6,35 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:22:01 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/03 17:20:33 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/03 19:24:54 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_free_tab(t_point ***tab, int size)
+int		line_test(char *line)
 {
-	if (tab == NULL)
-		return ;
-	while (--size >= 0)
-		ft_memdel((void **)&(tab[size]));
-	ft_memdel((void **)tab);
+	while (*line)
+	{
+		if (*line != ' ' && ft_isdigit(*line) == 0 && *line != '-')
+			return (0);
+		++line;
+	}
+	return (1);
+}
+
+void	malo_exit(void)
+{
+	ft_putendl("Error: Malloc crash.");
+	close(3);
+	exit(-1);
+}
+
+void	file_exit(void)
+{
+	ft_putendl("Error: Invalid file.");
+	close(3);
+	exit(-2);
 }
 
 int		ft_abs(int a)
@@ -40,8 +56,8 @@ void	ft_tpointcpy(t_point ***dst, t_point ***src)
 			dst[i][j]->x = src[i][j]->x;
 			dst[i][j]->y = src[i][j]->y;
 			dst[i][j]->z = src[i][j]->z;
-			j++;
+			++j;
 		}
-		i++;
+		++i;
 	}
 }

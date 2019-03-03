@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 18:42:22 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/01 18:51:18 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/03 19:56:00 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define BUFF_SIZE 8197
-# define CURR_CONT (char *)current->content
-# define P_CURR_CONT (char *)(*current)->content
-# define P_CURR_FD (int)(*current)->content_size
+# define BUFF_SIZE 8196
 
 int	get_next_line(const int fd, char **line);
 

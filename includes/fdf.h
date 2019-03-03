@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/03 17:19:56 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/03 19:24:55 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,9 @@ void			init_dif(t_point ***pts, t_math *math);
 **	fdf_utils.c
 */
 
-void			ft_free_tab(t_point ***tab, int size);
+int				line_test(char *line);
+void			malo_exit(void);
+void			file_exit(void);
 int				ft_abs(int a);
 void			ft_tpointcpy(t_point ***dst, t_point ***src);
 

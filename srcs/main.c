@@ -6,19 +6,11 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/03 17:21:31 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/03 19:25:51 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-/*
-NORME
-recheck leaks
-validity check
-checker lib et la reduire au max
-normer gnl
-*/
 
 static int	fdf_close(void *param)
 {
@@ -31,13 +23,11 @@ static int	fdf_close(void *param)
 		++i;
 	mlx_destroy_image(env->mlx_ptr, env->img.img_ptr);
 	mlx_destroy_window(env->mlx_ptr, env->win_ptr);
-	ft_free_tab(env->pts, i);
-	ft_free_tab(env->ori, i);
 	exit(0);
 	return (0);
 }
 
-static int	do_key_release(int keycode, void *param)
+static int	do_key_rel(int keycode, void *param)
 {
 	t_mlx	*env;
 	int		i;
@@ -50,8 +40,6 @@ static int	do_key_release(int keycode, void *param)
 			++i;
 		mlx_destroy_image(env->mlx_ptr, env->img.img_ptr);
 		mlx_destroy_window(env->mlx_ptr, env->win_ptr);
-		ft_free_tab(env->pts, i);
-		ft_free_tab(env->ori, i);
 		exit(0);
 	}
 	return (0);
@@ -104,7 +92,7 @@ int			main(int ac, char **av)
 	init_tab(env.key_tab, KEY_TAB);
 	init_view(&env.math);
 	mlx_hook(env.win_ptr, KEYPRESS, KEYPRESSMASK, do_key_press, (void *)&env);
-	mlx_hook(env.win_ptr, KEYRELEASE, KEYRELEASEMASK, do_key_release, (void *)&env);
+	mlx_hook(env.win_ptr, KEYRELEASE, KEYRELEASEMASK, do_key_rel, (void *)&env);
 	mlx_hook(env.win_ptr, DESTROYNOTIFY, KEYPRESSMASK, fdf_close, (void *)&env);
 	mlx_loop(env.mlx_ptr);
 	return (0);

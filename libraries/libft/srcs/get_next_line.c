@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 19:35:45 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/01 16:10:56 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/03 19:55:12 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,15 @@ static int		read_fd(t_list **current)
 	char			buff[BUFF_SIZE + 1];
 	char			*tmp;
 
-	while ((ret = read(P_CURR_FD, buff, BUFF_SIZE)) > 0)
+	while ((ret = read((int)(*current)->content_size, buff, BUFF_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
-		tmp = P_CURR_CONT;
-		if (!((*current)->content = (void*)ft_strjoin(P_CURR_CONT, buff)))
+		tmp = (char*)(*current)->content;
+		if (!((*current)->content = \
+					(void*)ft_strjoin((char*)(*current)->content, buff)))
 			return (-1);
 		ft_memdel((void **)&tmp);
-		if (ft_strchr(P_CURR_CONT, '\n'))
+		if (ft_strchr((char*)(*current)->content, '\n'))
 			break ;
 	}
 	return (ret);
@@ -68,14 +69,15 @@ int				get_next_line(const int fd, char **line)
 		return (-1);
 	if ((ret = read_fd(&current)) == -1)
 		return (-1);
-	if (ret == 0 && (ft_strlen(CURR_CONT)) == 0)
+	if (ret == 0 && (ft_strlen((char*)current->content)) == 0)
 	{
 		ft_lstdelone(&current, &ft_del_cont);
 		return (0);
 	}
-	if ((eol = ft_strchr(CURR_CONT, '\n')) == NULL)
-		eol = ft_strchr(CURR_CONT, '\0');
-	if ((*line = ft_strsub(CURR_CONT, 0, eol - CURR_CONT)) == NULL
+	if ((eol = ft_strchr((char*)current->content, '\n')) == NULL)
+		eol = ft_strchr((char*)current->content, '\0');
+	if ((*line = ft_strsub((char*)current->content, 0, \
+					eol - (char*)current->content)) == NULL
 			|| !(eol = (*eol != '\0' ? ft_strdup(eol + 1) : ft_strdup(eol))))
 		return (-1);
 	ft_memdel(&current->content);
