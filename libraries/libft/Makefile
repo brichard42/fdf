@@ -6,7 +6,7 @@
 #    By: brichard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by brichard          #+#    #+#              #
-#    Updated: 2019/03/04 11:49:16 by brichard         ###   ########.fr        #
+#    Updated: 2019/03/04 12:15:18 by brichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,13 @@ SRCS =			ft_strlen.c \
 				ft_lstdelone.c \
 				ft_lstdel.c \
 				ft_lstapp.c \
+				ft_lstadd.c \
+				ft_memcpy.c \
+				ft_strchr.c \
+				ft_strdup.c \
+				ft_strjoin.c \
+				ft_strnew.c \
+				ft_strsub.c \
 				ft_del_cont.c
 
 ################################################################################
