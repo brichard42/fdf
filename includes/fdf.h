@@ -6,12 +6,43 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/03 19:24:55 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/04 11:04:40 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+# ifdef __APPLE__
+#  include "TargetConditionals.h"
+#  if TARGET_OS_MAC
+#   define KEY_Z 6
+#   define KEY_E 14
+#   define KEY_R 15
+#   define KEY_I 34
+#   define KEY_P 35
+#   define KEY_UP 126
+#   define KEY_DOWN 125
+#   define KEY_LEFT 123
+#   define KEY_RIGHT 124
+#   define KEY_ESC 53
+#   define KEY_PLUS 69
+#   define KEY_MINUS 78
+#  endif
+# elif __linux__
+#  define KEY_Z 122
+#  define KEY_E 101
+#  define KEY_R 114
+#  define KEY_I 105
+#  define KEY_P 112
+#  define KEY_UP 65362
+#  define KEY_DOWN 65364
+#  define KEY_LEFT 65361
+#  define KEY_RIGHT 65363
+#  define KEY_ESC 65307
+#  define KEY_PLUS 65451
+#  define KEY_MINUS 65453
+# endif
+
 
 # include "libft.h"
 # include "mlx.h"
@@ -26,18 +57,6 @@
 
 # define W_HEIGHT 1080
 # define W_WIDTH 1920
-# define KEY_Z 6
-# define KEY_E 14
-# define KEY_R 15
-# define KEY_I 34
-# define KEY_P 35
-# define KEY_UP 126
-# define KEY_DOWN 125
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
-# define KEY_ESC 53
-# define KEY_PLUS 69
-# define KEY_MINUS 78
 
 # define CONTROLS		"            CONTROLS"
 # define S_UP			"     Move Up    |     ^"
@@ -145,6 +164,7 @@ int				pick_color(double z);
 
 # define KEYPRESSMASK				(1L<<0)
 # define KEYRELEASEMASK				(1L<<1)
+# define STRUCTURENOTIFYMASK		(1L<<17)
 
 /*
 **	Event names.  Used in "type" field in XEvent structures.  Not to be

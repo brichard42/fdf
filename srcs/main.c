@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:10:24 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/03 19:25:51 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/04 11:02:08 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ int			main(int ac, char **av)
 	init_view(&env.math);
 	mlx_hook(env.win_ptr, KEYPRESS, KEYPRESSMASK, do_key_press, (void *)&env);
 	mlx_hook(env.win_ptr, KEYRELEASE, KEYRELEASEMASK, do_key_rel, (void *)&env);
-	mlx_hook(env.win_ptr, DESTROYNOTIFY, KEYPRESSMASK, fdf_close, (void *)&env);
+	mlx_hook(env.win_ptr, DESTROYNOTIFY, STRUCTURENOTIFYMASK, \
+							fdf_close, (void *)&env);
 	mlx_loop(env.mlx_ptr);
 	return (0);
 }
