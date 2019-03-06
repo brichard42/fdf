@@ -6,14 +6,21 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:12:31 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/03 11:41:40 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/04 18:30:21 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_STRUCTS_H
 # define FDF_STRUCTS_H
 
-# define KEY_TAB /*130*/65453
+# ifdef __APPLE__
+#  include "TargetConditionals.h"
+#  if TARGET_OS_MAC
+#   define KEY_TAB 130
+#  endif
+# elif __linux__
+#  define KEY_TAB 65453
+# endif
 
 typedef struct	s_vect
 {

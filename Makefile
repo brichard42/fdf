@@ -6,7 +6,7 @@
 #    By: brichard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by brichard          #+#    #+#              #
-#    Updated: 2019/03/04 10:42:38 by brichard         ###   ########.fr        #
+#    Updated: 2019/03/04 19:21:52 by brichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,17 +100,6 @@ WARN_STRING  = "[WARNING]"
 COM_STRING   = "Compiling"
 
 ################################################################################
-#                                    SHELL                                     #
-################################################################################
-
-define lib_script
-	for dir in $(LIB_PATH); do \
-		(${MAKE} -C $$dir); \
-		done; \
-
-endef
-
-################################################################################
 #                                   COMMANDS                                   #
 ################################################################################
 
@@ -118,23 +107,20 @@ endef
 
 all: $(NAME)
 
-$(NAME): lib $(OBJS_PATH) $(INC) $(D_OBJS)
+$(NAME): $(LIB_PATH)/libft.a $(OBJS_PATH) $(INC) $(D_OBJS)
 	@$(call run_and_test, $(CC) $(CFLAGS) -o $(NAME) $(D_OBJS) -I $(MLX_PATH)/include/ -L $(MLX_PATH)/lib/ -lmlx -framework OpenGL -framework AppKit -L ./$(LIB)/libft -lft )
 
-linux: lib $(OBJS_PATH) $(INC) $(D_OBJS)
+linux: $(OBJS_PATH) $(INC) $(D_OBJS)
 	@$(call run_and_test, $(CC) $(CFLAGS) -o $(NAME) $(D_OBJS) -I ./$(LIB)/libmlx/include/ -L ./$(LIB)/libmlx/ -lmlx -L ./$(LIB)/libft -lft -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11 -lm)
 
-sanitize: lib $(OBJS_PATH) $(INC) $(D_OBJS)
-	@$(call run_and_test, $(CC) $(CFLAGS) $(SANITIZE) -o $(NAME) $(D_OBJS) -I ./$(LIB)/libmlx/include/ -L ./$(LIB)/libmlx/ -lmlx -L ./$(LIB)/libft -lft -L/usr/X11/lib /usr/X11/lib/libmlx.a -lXext -lX11 -lm)
-
 $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
-	@$(call run_and_test, $(CC) $(CFLAGS) -o $@ -c $< -I $(INC)  $(INC_FLAGS) -lm) #add -lm sur linux
+	@$(call run_and_test, $(CC) $(CFLAGS) -o $@ -c $< -I $(INC) $(INC_FLAGS))
 
 $(OBJS_PATH) :
 	@$(call run_and_test, mkdir -p $@)
 
-lib:
-	@$(call lib_script)
+$(LIB_PATH)/libft.a:
+	@make -C $(LIB_PATH)
 
 CLEAN_LIB = $(addprefix && make clean -C , $(LIB_PATH))
 clean:

@@ -6,7 +6,7 @@
 /*   By: brichard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 11:13:35 by brichard          #+#    #+#             */
-/*   Updated: 2019/03/04 11:04:40 by brichard         ###   ########.fr       */
+/*   Updated: 2019/03/06 18:36:09 by brichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,11 @@
 #  define KEY_MINUS 65453
 # endif
 
-
 # include "libft.h"
 # include "mlx.h"
 # include "fdf_colors.h"
 # include "fdf_structs.h"
-# include <stdio.h>
 # include <stdlib.h>
-# include <errno.h>
 # include <math.h>
 # include <fcntl.h>
 # include <unistd.h>
